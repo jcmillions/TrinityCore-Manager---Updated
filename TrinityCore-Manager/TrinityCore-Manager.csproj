@@ -220,6 +220,8 @@
     <Compile Include="Misc\WoWItem.cs" />
     <Compile Include="Models\BackupDatabaseModel.cs" />
     <Compile Include="Models\CharacterSelectingModel.cs" />
+    <Compile Include="Models\FindItemModel.cs" />
+    <Compile Include="Models\ItemModel.cs" />
     <Compile Include="Models\RestoreDatabaseModel.cs" />
     <Compile Include="Models\SettingsModel.cs" />
     <Compile Include="Models\WizardModel.cs" />
@@ -245,6 +247,7 @@
     <Compile Include="ViewModels\AccountsViewModel.cs" />
     <Compile Include="ViewModels\BackupDatabaseViewModel.cs" />
     <Compile Include="ViewModels\CharacterSelectingViewModel.cs" />
+    <Compile Include="ViewModels\FindItemViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\RestoreDatabaseViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
@@ -255,6 +258,9 @@
     </Compile>
     <Compile Include="Views\CharacterSelectingWindow.xaml.cs">
       <DependentUpon>CharacterSelectingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FindItemWindow.xaml.cs">
+      <DependentUpon>FindItemWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RestoreDatabaseWindow.xaml.cs">
       <DependentUpon>RestoreDatabaseWindow.xaml</DependentUpon>
@@ -292,6 +298,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CharacterSelectingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FindItemWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

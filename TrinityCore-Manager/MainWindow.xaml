@@ -165,7 +165,7 @@
 
                 <fluent:RibbonGroupBox x:Name="SMGroup15" Header="Search for ID's" Width="120">
                     <fluent:Button Header="Find NPC" Width="45" LargeIcon="{StaticResource SearchImage}" Margin="0,0,25,0" />
-                    <fluent:Button Header="Find Item" Width="45" LargeIcon="{StaticResource SearchImage}" />
+                    <fluent:Button Header="Find Item" Width="45" LargeIcon="{StaticResource SearchImage}" Command="{Binding FindItemCommand}" />
                 </fluent:RibbonGroupBox>
 
                 <fluent:RibbonGroupBox x:Name="SMGroup16" Header="SmartAI" Width="120">

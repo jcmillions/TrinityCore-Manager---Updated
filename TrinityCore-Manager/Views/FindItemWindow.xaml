@@ -1,0 +1,40 @@
+﻿<Window x:Class="TrinityCore_Manager.Views.FindItemWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:viewModels="clr-namespace:TrinityCore_Manager.ViewModels"
+        xmlns:catel="http://catel.codeplex.com"
+        Title="FindItemWindow" Height="516" Width="482">
+
+    <i:Interaction.Behaviors>
+        <catel:WindowBehavior x:Name="mvvmBehavior" ViewModelType="{x:Type viewModels:FindItemViewModel}"/>
+    </i:Interaction.Behaviors>
+
+    <Window.Resources>
+    </Window.Resources>
+
+    <Grid>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="{Binding SearchText}" VerticalAlignment="Top" Width="374"/>
+        <Button Content="Search" HorizontalAlignment="Left" Margin="389,10,0,0" VerticalAlignment="Top" Width="75" Height="23" Command="{Binding SearchCommand}"/>
+        <ListView HorizontalAlignment="Left" Height="385" Margin="10,38,0,0" VerticalAlignment="Top" Width="454" ItemsSource="{Binding Items, UpdateSourceTrigger=PropertyChanged}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Image"  Width="80">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Width="56" Height="56" Stretch="Fill" Source="{Binding ItemImage}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Id"  Width="80" DisplayMemberBinding="{Binding ItemId}" />
+                    <GridViewColumn Header="Name"  Width="200" DisplayMemberBinding="{Binding ItemName}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Content="Next --&gt;" HorizontalAlignment="Left" Margin="192,455,0,0" VerticalAlignment="Top" Width="75" Command="{Binding NextPageCommand}"/>
+        <Button Content="&lt;-- Previous" HorizontalAlignment="Left" Margin="112,455,0,0" VerticalAlignment="Top" Width="75" Command="{Binding PreviousPageCommand}"/>
+        <Button Content="Ok" HorizontalAlignment="Left" Margin="389,455,0,0" VerticalAlignment="Top" Width="75" Command="{Binding OkCommand}"/>
+        <Label Content="{Binding Page, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="272,452,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>

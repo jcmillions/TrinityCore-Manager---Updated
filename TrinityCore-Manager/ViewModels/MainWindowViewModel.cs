@@ -64,6 +64,8 @@ namespace TrinityCore_Manager.ViewModels
 
         public Command RestoreDatabaseCommand { get; private set; }
 
+        public Command FindItemCommand { get; private set; }
+
         public MainWindowViewModel(IUIVisualizerService uiVisualizerService, IPleaseWaitService pleaseWaitService, IMessageService messageService)
         {
 
@@ -98,6 +100,7 @@ namespace TrinityCore_Manager.ViewModels
             OpenSetupWizardCommand = new Command(OpenSetupWizard);
             BackupDatabaseCommand = new Command(BackupDatabase);
             RestoreDatabaseCommand = new Command(RestoreDatabase);
+            FindItemCommand = new Command(FindItem);
 
             CheckSettings();
             InitBackupTimer();
@@ -105,6 +108,15 @@ namespace TrinityCore_Manager.ViewModels
             SetColorTheme(Settings.Default.ColorTheme);
 
             Application.Current.Exit += Current_Exit;
+        }
+
+        private void FindItem()
+        {
+
+            var fi = new FindItemModel();
+
+            var returnVal = _uiVisualizerService.ShowDialog(new FindItemViewModel(fi, _uiVisualizerService, _pleaseWaitService, _messageService));
+
         }
 
         private void BackupDatabase()
@@ -151,7 +163,7 @@ namespace TrinityCore_Manager.ViewModels
                 WorldDatabase = Settings.Default.DBWorldName,
             };
 
-            _uiVisualizerService.ShowDialog(new RestoreDatabaseViewModel(rd, _uiVisualizerService, _pleaseWaitService, _messageService));
+            var returnVal = _uiVisualizerService.ShowDialog(new RestoreDatabaseViewModel(rd, _uiVisualizerService, _pleaseWaitService, _messageService));
 
         }
 
