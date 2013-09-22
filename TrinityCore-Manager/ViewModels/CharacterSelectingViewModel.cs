@@ -7,82 +7,97 @@ using System.Threading.Tasks;
 using Catel.Data;
 using Catel.MVVM;
 using TrinityCore_Manager.Models;
+using TrinityCore_Manager.TCM;
 
 namespace TrinityCore_Manager.ViewModels
 {
     class CharacterSelectingViewModel : ViewModelBase
     {
 
-        public Command OkCommand { get; private set; }
-
-        public Command CancelCommand { get; private set; }
+        public Command SelectCommand { get; private set; }
 
         public CharacterSelectingViewModel(CharacterSelectingModel model)
         {
 
-            //Settings = model;
+            CharacterSelecting = model;
 
-            OkCommand = new Command(ExecuteOk);
-            CancelCommand = new Command(ExecuteCancel);
+            SelectCommand = new Command(SelectCharacter);
+
         }
 
-        private void ExecuteOk()
+        private void SelectCharacter()
         {
-            //Properties.Settings.Default.ColorTheme = SelectedTheme;
-            Properties.Settings.Default.Save();
             SaveAndCloseViewModel();
         }
 
-        private void ExecuteCancel()
+        [Model]
+        public CharacterSelectingModel CharacterSelecting
         {
-            CancelAndCloseViewModel();
+            get
+            {
+                return GetValue<CharacterSelectingModel>(CharacterSelectingProperty);
+            }
+            set
+            {
+                SetValue(CharacterSelectingProperty, value);
+            }
         }
 
-        //[Model]
-        //public SettingsModel Settings
-        //{
-        //    get
-        //    {
-        //        return GetValue<SettingsModel>(SettingsProperty);
-        //    }
-        //    set
-        //    {
-        //        SetValue(SettingsProperty, value);
-        //    }
-        //}
+        public static readonly PropertyData CharacterSelectingProperty = RegisterProperty("CharacterSelecting", typeof(CharacterSelectingModel));
 
-        //public static PropertyData SettingsProperty = RegisterProperty("Settings", typeof(SettingsModel));
+        [ViewModelToModel("CharacterSelecting")]
+        public ObservableCollection<string> Characters
+        {
+            get
+            {
+                return GetValue<ObservableCollection<string>>(CharactersProperty);
+            }
+            set
+            {
+                SetValue(CharactersProperty, value);
+            }
+        }
 
+        public static readonly PropertyData CharactersProperty = RegisterProperty("Characters", typeof(ObservableCollection<string>));
 
-        //[ViewModelToModel("Settings")]
-        //public ObservableCollection<string> Themes
-        //{
-        //    get
-        //    {
-        //        return GetValue<ObservableCollection<string>>(ThemesProperty);
-        //    }
-        //    set
-        //    {
-        //        SetValue(ThemesProperty, value);
-        //    }
-        //}
+        [ViewModelToModel("CharacterSelecting")]
+        public string SelectedCharacter
+        {
+            get
+            {
+                return GetValue<string>(SelectedCharacterProperty);
+            }
+            set
+            {
+                SetValue(SelectedCharacterProperty, value);
+            }
+        }
 
-        //public static readonly PropertyData ThemesProperty = RegisterProperty("Themes", typeof(ObservableCollection<string>));
+        public static readonly PropertyData SelectedCharacterProperty = RegisterProperty("SelectedCharacter", typeof(string));
 
-        //[ViewModelToModel("Settings")]
-        //public string SelectedTheme
-        //{
-        //    get
-        //    {
-        //        return GetValue<string>(SelectedThemeProperty);
-        //    }
-        //    set
-        //    {
-        //        SetValue(SelectedThemeProperty, value);
-        //    }
-        //}
+        [ViewModelToModel("CharacterSelecting")]
+        public string SearchText
+        {
+            get
+            {
+                return GetValue<string>(SearchTextProperty);
+            }
+            set
+            {
 
-        //public static readonly PropertyData SelectedThemeProperty = RegisterProperty("SelectedTheme", typeof(string), "black");
+                Characters.Clear();
+
+                TCManager.Instance.CharDatabase.SearchForCharacter(value).ContinueWith(task =>
+                {
+                    Characters = new ObservableCollection<string>(task.Result.Select(p => p.Name));
+                });
+
+                SetValue(SearchTextProperty, value);
+
+            }
+        }
+
+        public static readonly PropertyData SearchTextProperty = RegisterProperty("SearchText", typeof(string));
 
     }
 }

@@ -246,6 +246,23 @@ namespace TrinityCore_Manager.Database
 
         }
 
+        public async Task<List<TCCharacter>> SearchForCharacter(string like)
+        {
+
+            DataTable dt = await ExecuteQuery("SELECT guid, account, name, race, class, level, money, online, totaltime, totalKills, arenaPoints, totalHonorPoints FROM `characters` " +
+                                              "WHERE LOWER(name) LIKE '%" + like.ToLower() + "%' LIMIT 15");
+
+            var chars = new List<TCCharacter>();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                chars.Add(BuildCharacter(row));
+            }
+
+            return chars;
+
+        }
+
         private TCCharacter BuildCharacter(DataRow row)
         {
 

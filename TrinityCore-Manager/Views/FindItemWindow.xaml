@@ -16,7 +16,8 @@
     <Grid>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="{Binding SearchText}" VerticalAlignment="Top" Width="374"/>
         <Button Content="Search" HorizontalAlignment="Left" Margin="389,10,0,0" VerticalAlignment="Top" Width="75" Height="23" Command="{Binding SearchCommand}"/>
-        <ListView HorizontalAlignment="Left" Height="385" Margin="10,38,0,0" VerticalAlignment="Top" Width="454" ItemsSource="{Binding Items, UpdateSourceTrigger=PropertyChanged}">
+        <ListView HorizontalAlignment="Left" Height="385" Margin="10,38,0,0" VerticalAlignment="Top" Width="454" ItemsSource="{Binding Items, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding SelectedItem}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Image"  Width="80">

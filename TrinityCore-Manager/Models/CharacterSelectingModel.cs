@@ -12,36 +12,50 @@ namespace TrinityCore_Manager.Models
     {
         public CharacterSelectingModel()
         {
-            //Themes = new ObservableCollection<string>();
+            Characters = new ObservableCollection<string>();
         }
 
-        //public ObservableCollection<string> Themes
-        //{
-        //    get
-        //    {
-        //        return GetValue<ObservableCollection<string>>(ThemesProperty);
-        //    }
-        //    set
-        //    {
-        //        SetValue(ThemesProperty, value);
-        //    }
-        //}
+        public ObservableCollection<string> Characters
+        {
+            get
+            {
+                return GetValue<ObservableCollection<string>>(CharactersProperty);
+            }
+            set
+            {
+                SetValue(CharactersProperty, value);
+            }
+        }
 
-        //public static readonly PropertyData ThemesProperty = RegisterProperty("Themes", typeof(ObservableCollection<string>));
+        public static readonly PropertyData CharactersProperty = RegisterProperty("Characters", typeof(ObservableCollection<string>));
 
-        //public string SelectedTheme
-        //{
-        //    get
-        //    {
-        //        return GetValue<string>(SelectedThemeProperty);
-        //    }
-        //    set
-        //    {
-        //        SetValue(SelectedThemeProperty, value);
-        //    }
-        //}
+        public string SearchText
+        {
+            get
+            {
+                return GetValue<string>(SearchTextProperty);
+            }
+            set
+            {
+                SetValue(SearchTextProperty, value);
+            }
+        }
 
-        //public static readonly PropertyData SelectedThemeProperty = RegisterProperty("SelectedTheme", typeof(string), "Silver");
+        public static readonly PropertyData SearchTextProperty = RegisterProperty("SearchText", typeof(string));
+
+        public string SelectedCharacter
+        {
+            get
+            {
+                return GetValue<string>(SelectedCharacterProperty);
+            }
+            set
+            {
+                SetValue(SelectedCharacterProperty, value);
+            }
+        }
+
+        public static readonly PropertyData SelectedCharacterProperty = RegisterProperty("SelectedCharacter", typeof(string));
 
     }
 }

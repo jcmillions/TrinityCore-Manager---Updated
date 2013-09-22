@@ -117,7 +117,8 @@
             <fluent:RibbonTabItem ReduceOrder="Default,Default,Default,Large,Large,Large,Other,Other,Other" Header="Character Management" IsSelected="True">
                 <fluent:RibbonGroupBox x:Name="SMGroup8" Header="Character Selecting" Width="199">
                     <fluent:Button Header="Select a character" Width="56" LargeIcon="{StaticResource PersonImage}" Command="{Binding SelectCharacterCommand}"/>
-                    <ComboBox Width="120" Margin="10,25,0,0" IsEditable="True" KeyDown="ComboBox_KeyDown"/>
+                    <ComboBox Width="120" Margin="10,25,0,0" IsEditable="False" KeyDown="ComboBox_KeyDown" ItemsSource="{Binding Characters, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding SelectedCharacter,UpdateSourceTrigger=PropertyChanged}"/>
                 </fluent:RibbonGroupBox>
 
                 <fluent:RibbonGroupBox x:Name="SMGroup9" Header="Character Editing" Width="912">

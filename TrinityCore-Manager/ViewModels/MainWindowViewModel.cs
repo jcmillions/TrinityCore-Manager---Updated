@@ -102,6 +102,8 @@ namespace TrinityCore_Manager.ViewModels
             RestoreDatabaseCommand = new Command(RestoreDatabase);
             FindItemCommand = new Command(FindItem);
 
+            Characters = new ObservableCollection<string>();
+
             CheckSettings();
             InitBackupTimer();
 
@@ -390,18 +392,24 @@ namespace TrinityCore_Manager.ViewModels
 
         private void SelectCharacter()
         {
+
             var sm = new CharacterSelectingModel();
-            //sm.SelectedTheme = Settings.Default.ColorTheme;
 
-            //sm.Themes.Add("Black");
-            //sm.Themes.Add("Silver");
-            //sm.Themes.Add("Blue");
+            var returnVal = _uiVisualizerService.ShowDialog(new CharacterSelectingViewModel(sm));
 
-            _uiVisualizerService.ShowDialog(new CharacterSelectingViewModel(sm), (sender, e) =>
+            if (returnVal.HasValue && returnVal.Value)
             {
-                //if (e.Result.HasValue && e.Result.Value)
-                //    SetColorTheme(sm.SelectedTheme);
-            });
+
+                if (!Characters.Any(p => p.Equals(sm.SelectedCharacter, StringComparison.OrdinalIgnoreCase)))
+                {
+
+                    Characters.Add(sm.SelectedCharacter);
+
+                    SelectedCharacter = sm.SelectedCharacter;
+
+                }
+
+            }
 
         }
 
@@ -877,6 +885,34 @@ namespace TrinityCore_Manager.ViewModels
         }
 
         public static readonly PropertyData CompilePlatformsProperty = RegisterProperty("CompilePlatforms", typeof(ObservableCollection<string>));
+
+        public ObservableCollection<string> Characters
+        {
+            get
+            {
+                return GetValue<ObservableCollection<string>>(CharactersProperty);
+            }
+            set
+            {
+                SetValue(CharactersProperty, value);
+            }
+        }
+
+        public static readonly PropertyData CharactersProperty = RegisterProperty("Characters", typeof(ObservableCollection<string>));
+
+        public string SelectedCharacter
+        {
+            get
+            {
+                return GetValue<string>(SelectedCharacterProperty);
+            }
+            set
+            {
+                SetValue(SelectedCharacterProperty, value);
+            }
+        }
+
+        public static readonly PropertyData SelectedCharacterProperty = RegisterProperty("SelectedCharacter", typeof(string));
 
     }
 }

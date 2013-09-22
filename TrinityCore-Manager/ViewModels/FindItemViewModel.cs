@@ -180,5 +180,20 @@ namespace TrinityCore_Manager.ViewModels
 
         public static readonly PropertyData PageProperty = RegisterProperty("Page", typeof(string), "Page 0 of 0");
 
+        public ItemModel SelectedItem
+        {
+            get
+            {
+                return GetValue<ItemModel>(SelectedItemProperty);
+            }
+            set
+            {
+                SetValue(SelectedItemProperty, value);
+            }
+
+        }
+
+        public static readonly PropertyData SelectedItemProperty = RegisterProperty("SelectedItem", typeof(ItemModel));
+
     }
 }

@@ -23,5 +23,10 @@ namespace TrinityCore_Manager.Views
         {
             InitializeComponent();
         }
+
+        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            SearchTextBox.SetValue(TextBox.TextProperty, SearchTextBox.Text);
+        }
     }
 }
