@@ -387,30 +387,20 @@ namespace TrinityCore_Manager.ViewModels
                 if (e.Result.HasValue && e.Result.Value)
                     SetColorTheme(sm.SelectedTheme);
             });
-
         }
 
         private void SelectCharacter()
         {
-
             var sm = new CharacterSelectingModel();
 
-            var returnVal = _uiVisualizerService.ShowDialog(new CharacterSelectingViewModel(sm));
-
-            if (returnVal.HasValue && returnVal.Value)
+            _uiVisualizerService.ShowDialog(new CharacterSelectingViewModel(sm), (sender, e) =>
             {
-
                 if (!Characters.Any(p => p.Equals(sm.SelectedCharacter, StringComparison.OrdinalIgnoreCase)))
                 {
-
                     Characters.Add(sm.SelectedCharacter);
-
                     SelectedCharacter = sm.SelectedCharacter;
-
                 }
-
-            }
-
+            });
         }
 
         private void OpenSetupWizard()
