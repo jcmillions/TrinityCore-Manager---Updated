@@ -13,8 +13,8 @@ namespace TrinityCore_Manager.ViewModels
 {
     class CharacterSelectingViewModel : ViewModelBase
     {
-
         public Command SelectCommand { get; private set; }
+        public Command SearchCharacterCommand { get; private set; }
 
         public CharacterSelectingViewModel(CharacterSelectingModel model)
         {
@@ -22,12 +22,24 @@ namespace TrinityCore_Manager.ViewModels
             CharacterSelecting = model;
 
             SelectCommand = new Command(SelectCharacter);
-
+            SearchCharacterCommand = new Command(SearchCharacter);
         }
 
         private void SelectCharacter()
         {
             SaveAndCloseViewModel();
+        }
+
+        private void SearchCharacter()
+        {
+            Characters.Clear();
+
+            TCManager.Instance.CharDatabase.SearchForCharacter(SearchText).ContinueWith(task =>
+            {
+                Characters = new ObservableCollection<string>(task.Result.Select(p => p.Name));
+            });
+
+            SetValue(SearchTextProperty, SearchText);
         }
 
         [Model]
@@ -84,16 +96,7 @@ namespace TrinityCore_Manager.ViewModels
             }
             set
             {
-
-                Characters.Clear();
-
-                TCManager.Instance.CharDatabase.SearchForCharacter(value).ContinueWith(task =>
-                {
-                    Characters = new ObservableCollection<string>(task.Result.Select(p => p.Name));
-                });
-
                 SetValue(SearchTextProperty, value);
-
             }
         }
 

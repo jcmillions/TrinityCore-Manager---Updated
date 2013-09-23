@@ -410,7 +410,6 @@ namespace TrinityCore_Manager.ViewModels
 
         private void SetColorTheme(string colorTheme)
         {
-
             Application.Current.Resources.BeginInit();
             Application.Current.Resources.MergedDictionaries.RemoveAt(1);
 
