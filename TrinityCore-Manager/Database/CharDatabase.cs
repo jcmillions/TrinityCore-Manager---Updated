@@ -312,6 +312,18 @@ namespace TrinityCore_Manager.Database
 
         }
 
+        public async Task<TCCharacter> GetCharacter(string name)
+        {
+
+            DataTable dt = await ExecuteQuery("SELECT `guid`, `account`, `name`, `race`, `class`, `level`, `money`, `online`, `totaltime`, `totalKills` ,`arenaPoints`, `totalHonorPoints` FROM `characters` WHERE LOWER(name) = @name", new MySqlParameter("@name", name.ToLower()));
+
+            if (dt.Rows.Count == 0)
+                return null;
+
+            return BuildCharacter(dt.Rows[0]);
+
+        }
+
         public async Task<List<int>> GetOnlineCharacterGuids()
         {
 

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TrinityCore_Manager.Commands;
 using TrinityCore_Manager.Database.Enums;
+using TrinityCore_Manager.Exceptions;
 using TrinityCore_Manager.Extensions;
 using TrinityCore_Manager.Misc;
 using TrinityCore_Manager.Properties;
@@ -104,7 +105,7 @@ namespace TrinityCore_Manager.TCM
             if (_tcm.Online)
                 await GetClient().SendMessage(TCCommand.KickPlayer.BuildCommand(player, reason));
             else
-                return;
+                throw new ServerOfflineException();
 
         }
 
@@ -114,7 +115,7 @@ namespace TrinityCore_Manager.TCM
             if (_tcm.Online)
                 await GetClient().SendMessage(command);
             else
-                return;
+                throw new ServerOfflineException();
 
         }
 
@@ -124,7 +125,7 @@ namespace TrinityCore_Manager.TCM
             if (_tcm.Online)
                 await GetClient().SendMessage(TCCommand.SetPlayerLimit.BuildCommand(limit.ToString()));
             else
-                return;
+                throw new ServerOfflineException();
 
         }
 
@@ -134,7 +135,7 @@ namespace TrinityCore_Manager.TCM
             if (_tcm.Online)
                 await GetClient().SendMessage(TCCommand.SetMOTD.BuildCommand(motd));
             else
-                return;
+                throw new ServerOfflineException();
 
         }
 
@@ -144,7 +145,7 @@ namespace TrinityCore_Manager.TCM
             if (_tcm.Online)
                 await GetClient().SendMessage(TCCommand.ServerAnnouncement.BuildCommand(message));
             else
-                return;
+                throw new ServerOfflineException();
 
         }
 
@@ -154,7 +155,7 @@ namespace TrinityCore_Manager.TCM
             if (_tcm.Online)
                 await GetClient().SendMessage(TCCommand.ServerNotification.BuildCommand(notification));
             else
-                return;
+                throw new ServerOfflineException();
 
         }
 
@@ -164,7 +165,7 @@ namespace TrinityCore_Manager.TCM
             if (_tcm.Online)
                 await GetClient().SendMessage(TCCommand.SendPlayerMessage.BuildCommand(playerName, message));
             else
-                return;
+                throw new ServerOfflineException();
 
         }
 
@@ -174,7 +175,7 @@ namespace TrinityCore_Manager.TCM
             if (_tcm.Online)
                 await GetClient().SendMessage(TCCommand.SendMail.BuildCommand(playerName, "\"" + subject + "\"", "\"" + text + "\""));
             else
-                return;
+                throw new ServerOfflineException();
 
         }
 
@@ -184,7 +185,7 @@ namespace TrinityCore_Manager.TCM
             if (_tcm.Online)
                 await GetClient().SendMessage(TCCommand.SendMoney.BuildCommand(playerName, "\"" + subject + "\"", "\"" + text + "\"", money.ToString()));
             else
-                return;
+                throw new ServerOfflineException();
 
         }
 
@@ -209,7 +210,7 @@ namespace TrinityCore_Manager.TCM
             }
             else
             {
-                return;
+                throw new ServerOfflineException();
             }
 
         }
@@ -220,7 +221,7 @@ namespace TrinityCore_Manager.TCM
             if (_tcm.Online)
                 await GetClient().SendMessage(TCCommand.NotifyGMs.BuildCommand(message));
             else
-                return;
+                throw new ServerOfflineException();
 
         }
 
@@ -230,7 +231,7 @@ namespace TrinityCore_Manager.TCM
             if (_tcm.Online)
                 await GetClient().SendMessage(TCCommand.RevivePlayer.BuildCommand(playerName));
             else
-                return;
+                throw new ServerOfflineException();
 
         }
 
@@ -240,7 +241,7 @@ namespace TrinityCore_Manager.TCM
             if (_tcm.Online)
                 await GetClient().SendMessage(TCCommand.ForceCharRename.BuildCommand(playerName));
             else
-                return;
+                throw new ServerOfflineException();
 
         }
 
@@ -286,7 +287,7 @@ namespace TrinityCore_Manager.TCM
             if (_tcm.Online)
                 await GetClient().SendMessage(TCCommand.CustomizeCharacter.BuildCommand(playerName));
             else
-                return;
+                throw new ServerOfflineException();
 
         }
 
@@ -296,7 +297,7 @@ namespace TrinityCore_Manager.TCM
             if (_tcm.Online)
                 await GetClient().SendMessage(TCCommand.MutePlayer.BuildCommand(playerName, timeInMin.ToString(), reason));
             else
-                return;
+                throw new ServerOfflineException();
 
         }
 
@@ -306,7 +307,7 @@ namespace TrinityCore_Manager.TCM
             if (_tcm.Online)
                 await GetClient().SendMessage(TCCommand.UnmutePlayer.BuildCommand(playerName));
             else
-                return;
+                throw new ServerOfflineException();
 
         }
 
@@ -327,7 +328,7 @@ namespace TrinityCore_Manager.TCM
             if (_tcm.Online)
                 await GetClient().SendMessage(TCCommand.UnstuckPlayer.BuildCommand(playerName, loc));
             else
-                return;
+                throw new ServerOfflineException();
 
         }
 
@@ -337,7 +338,7 @@ namespace TrinityCore_Manager.TCM
             if (_tcm.Online)
                 await GetClient().SendMessage(TCCommand.StopCombatForPlayer.BuildCommand(playerName));
             else
-                return;
+                throw new ServerOfflineException();
 
         }
 
@@ -347,7 +348,7 @@ namespace TrinityCore_Manager.TCM
             if (_tcm.Online)
                 await GetClient().SendMessage(TCCommand.RepairCharacterItems.BuildCommand(playerName));
             else
-                throw new Exception("Server is not online");
+                throw new ServerOfflineException();
 
         }
 
@@ -357,7 +358,7 @@ namespace TrinityCore_Manager.TCM
             if (_tcm.Online)
                 await GetClient().SendMessage(TCCommand.SaveAll.BuildCommand());
             else
-                return;
+                throw new ServerOfflineException();
 
         }
 
@@ -367,7 +368,7 @@ namespace TrinityCore_Manager.TCM
             if (_tcm.Online)
                 await GetClient().SendMessage(TCCommand.CreateGuild.BuildCommand("\"" + guildName + "\"", leaderName));
             else
-                return;
+                throw new ServerOfflineException();
 
         }
 
@@ -377,7 +378,7 @@ namespace TrinityCore_Manager.TCM
             if (_tcm.Online)
                 await GetClient().SendMessage(TCCommand.DeleteGuild.BuildCommand("\"" + guildName + "\""));
             else
-                return;
+                throw new ServerOfflineException();
 
         }
 
@@ -387,7 +388,7 @@ namespace TrinityCore_Manager.TCM
             if (_tcm.Online)
                 await GetClient().SendMessage(TCCommand.GuildInvite.BuildCommand(playerName, "\"" + guildName + "\""));
             else
-                return;
+                throw new ServerOfflineException();
 
         }
 
@@ -397,7 +398,7 @@ namespace TrinityCore_Manager.TCM
             if (_tcm.Online)
                 await GetClient().SendMessage(TCCommand.GuildUninvite.BuildCommand(playerName));
             else
-                return;
+                throw new ServerOfflineException();
 
         }
 
@@ -407,7 +408,7 @@ namespace TrinityCore_Manager.TCM
             if (_tcm.Online)
                 await GetClient().SendMessage(TCCommand.SetGuildRank.BuildCommand(playerName, rank.ToString()));
             else
-                return;
+                throw new ServerOfflineException();
 
         }
 
@@ -417,7 +418,27 @@ namespace TrinityCore_Manager.TCM
             if (_tcm.Online)
                 await GetClient().SendMessage(TCCommand.RenameGuild.BuildCommand("\"" + oldGuildName + "\"", "\"" + newGuildName + "\""));
             else
-                return;
+                throw new ServerOfflineException();
+
+        }
+
+        public static async Task RequestChangeRace(string charName)
+        {
+
+            if (_tcm.Online)
+                await GetClient().SendMessage(TCCommand.ChangeRace.BuildCommand(charName));
+            else
+                throw new ServerOfflineException();
+
+        }
+
+        public static async Task RequestChangeFaction(string charName)
+        {
+
+            if (_tcm.Online)
+                await GetClient().SendMessage(TCCommand.ChangeFaction.BuildCommand(charName));
+            else
+                throw new ServerOfflineException();
 
         }
 

@@ -12,7 +12,7 @@
 
     <GroupBox Header="Search information" HorizontalAlignment="Left" Height="312" VerticalAlignment="Top" Width="332" Margin="10,10,0,0">
         <Grid>
-            <TextBox x:Name="SearchTextBox" HorizontalAlignment="Left" Height="23" Margin="111,10,0,0" TextWrapping="NoWrap"  Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" 
+            <TextBox x:Name="SearchTextBox" HorizontalAlignment="Left" Height="23" Margin="105,10,0,0" TextWrapping="NoWrap"  Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" 
                      VerticalAlignment="Top" Width="135" TextChanged="SearchTextBox_TextChanged"/>
             <ListView HorizontalAlignment="Left" Height="202" Margin="10,53,0,0" VerticalAlignment="Top" Width="300" ItemsSource="{Binding Characters}"
                       SelectedItem="{Binding SelectedCharacter}">
@@ -22,9 +22,9 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <Label Content="Character Name" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="96"/>
+            <Label Content="Character Name" HorizontalAlignment="Left" Margin="4,10,0,0" VerticalAlignment="Top" Width="96"/>
             <Button Content="Select" HorizontalAlignment="Left" Margin="235,260,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SelectCommand}"/>
-            <Button Content="Search" HorizontalAlignment="Left" Margin="246,10,0,0" VerticalAlignment="Top" Width="64" Command="{Binding SearchCharacterCommand}"/>
+            <Button Content="Search" HorizontalAlignment="Left" Margin="245,11,0,0" VerticalAlignment="Top" Width="64" Command="{Binding SearchCharacterCommand}"/>
         </Grid>
     </GroupBox>
 </Window>

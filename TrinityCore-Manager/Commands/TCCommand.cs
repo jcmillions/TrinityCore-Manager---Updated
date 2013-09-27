@@ -111,6 +111,13 @@
         SendMoney,
 
         [TCCommand("send items", 4)]
-        SendItems
+        SendItems,
+
+        [TCCommand("character changerace", 1)]
+        ChangeRace,
+
+        [TCCommand("character changefaction", 1)]
+        ChangeFaction
+
     }
 }

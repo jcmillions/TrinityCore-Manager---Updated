@@ -32,14 +32,18 @@ namespace TrinityCore_Manager.ViewModels
 
         private void SearchCharacter()
         {
-            Characters.Clear();
 
-            TCManager.Instance.CharDatabase.SearchForCharacter(SearchText).ContinueWith(task =>
+            if (!string.IsNullOrEmpty(SearchText))
             {
-                Characters = new ObservableCollection<string>(task.Result.Select(p => p.Name));
-            });
 
-            SetValue(SearchTextProperty, SearchText);
+                Characters.Clear();
+
+                TCManager.Instance.CharDatabase.SearchForCharacter(SearchText).ContinueWith(task =>
+                {
+                    Characters = new ObservableCollection<string>(task.Result.Select(p => p.Name));
+                });
+
+            }
         }
 
         [Model]

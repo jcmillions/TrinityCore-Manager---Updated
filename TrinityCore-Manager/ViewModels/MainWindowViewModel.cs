@@ -15,6 +15,7 @@ using Catel.MVVM;
 using Catel.MVVM.Services;
 using Ookii.Dialogs.Wpf;
 using TrinityCore_Manager.Clients;
+using TrinityCore_Manager.Exceptions;
 using TrinityCore_Manager.Extensions;
 using TrinityCore_Manager.Misc;
 using TrinityCore_Manager.Models;
@@ -66,6 +67,24 @@ namespace TrinityCore_Manager.ViewModels
 
         public Command FindItemCommand { get; private set; }
 
+        #region Character Commands
+
+        public Command ReviveCharCommand { get; private set; }
+
+        public Command ForceRenameCommand { get; private set; }
+
+        public Command BanCharCommand { get; private set; }
+
+        public Command CharCustomizeCommand { get; private set; }
+
+        public Command CharRaceChangeCommand { get; private set; }
+
+        public Command CharFactionChangeCommand { get; private set; }
+
+        public Command CharChangeLevelCommand { get; private set; }
+
+        #endregion
+
         public MainWindowViewModel(IUIVisualizerService uiVisualizerService, IPleaseWaitService pleaseWaitService, IMessageService messageService)
         {
 
@@ -101,6 +120,13 @@ namespace TrinityCore_Manager.ViewModels
             BackupDatabaseCommand = new Command(BackupDatabase);
             RestoreDatabaseCommand = new Command(RestoreDatabase);
             FindItemCommand = new Command(FindItem);
+            ReviveCharCommand = new Command(ReviveChar);
+            ForceRenameCommand = new Command(ForceRename);
+            BanCharCommand = new Command(BanChar);
+            CharCustomizeCommand = new Command(CharCustomize);
+            CharRaceChangeCommand = new Command(CharRaceChange);
+            CharFactionChangeCommand = new Command(CharFactionChange);
+            CharChangeLevelCommand = new Command(CharChangeLevel);
 
             Characters = new ObservableCollection<string>();
 
@@ -110,6 +136,160 @@ namespace TrinityCore_Manager.ViewModels
             SetColorTheme(Settings.Default.ColorTheme);
 
             Application.Current.Exit += Current_Exit;
+        }
+
+        private async void CharChangeLevel()
+        {
+
+            if (string.IsNullOrEmpty(SelectedCharacter))
+            {
+
+                _messageService.ShowError("No character selected!");
+
+                return;
+
+            }
+
+            await TCAction.ModifyAccountLevel(SelectedCharacter, CharLevel);
+
+        }
+
+        private async void CharFactionChange()
+        {
+
+            if (string.IsNullOrEmpty(SelectedCharacter))
+            {
+
+                _messageService.ShowError("No character selected!");
+
+                return;
+
+            }
+
+            try
+            {
+                await TCAction.RequestChangeFaction(SelectedCharacter);
+            }
+            catch (ServerOfflineException ex)
+            {
+                _messageService.ShowError(ex.Message);
+            }
+
+        }
+
+        private async void CharRaceChange()
+        {
+
+            if (string.IsNullOrEmpty(SelectedCharacter))
+            {
+
+                _messageService.ShowError("No character selected!");
+
+                return;
+
+            }
+
+            try
+            {
+                await TCAction.RequestChangeRace(SelectedCharacter);
+            }
+            catch (ServerOfflineException ex)
+            {
+                _messageService.ShowError(ex.Message);
+            }
+
+        }
+
+        private async void CharCustomize()
+        {
+
+            if (string.IsNullOrEmpty(SelectedCharacter))
+            {
+
+                _messageService.ShowError("No character selected!");
+
+                return;
+
+            }
+
+            try
+            {
+                await TCAction.CustomizeCharacter(SelectedCharacter);
+            }
+            catch (ServerOfflineException ex)
+            {
+                _messageService.ShowError(ex.Message);
+            }
+
+        }
+
+        private async void BanChar()
+        {
+
+            if (string.IsNullOrEmpty(SelectedCharacter))
+            {
+
+                _messageService.ShowError("No character selected!");
+
+                return;
+
+            }
+
+            try
+            {
+                await TCAction.BanCharacter(SelectedCharacter);
+            }
+            catch (ServerOfflineException ex)
+            {
+                _messageService.ShowError(ex.Message);
+            }
+
+        }
+
+        private async void ForceRename()
+        {
+
+            if (string.IsNullOrEmpty(SelectedCharacter))
+            {
+
+                _messageService.ShowError("No character selected!");
+
+                return;
+
+            }
+
+            try
+            {
+                await TCAction.ForceCharRename(SelectedCharacter);
+            }
+            catch (ServerOfflineException ex)
+            {
+                _messageService.ShowError(ex.Message);
+            }
+
+        }
+
+        private async void ReviveChar()
+        {
+
+            if (string.IsNullOrEmpty(SelectedCharacter))
+            {
+
+                _messageService.ShowError("No character selected!");
+
+                return;
+
+            }
+
+            try
+            {
+                await TCAction.RevivePlayer(SelectedCharacter);
+            }
+            catch (ServerOfflineException ex)
+            {
+                _messageService.ShowError(ex.Message);
+            }
+
         }
 
         private void FindItem()
@@ -897,11 +1077,36 @@ namespace TrinityCore_Manager.ViewModels
             }
             set
             {
+
+                TCManager.Instance.CharDatabase.GetCharacter(value).ContinueWith(task =>
+                {
+
+                    var character = task.Result;
+
+                    CharLevel = character.Level;
+
+                });
+
                 SetValue(SelectedCharacterProperty, value);
+
             }
         }
 
         public static readonly PropertyData SelectedCharacterProperty = RegisterProperty("SelectedCharacter", typeof(string));
+
+        public int CharLevel
+        {
+            get
+            {
+                return GetValue<int>(CharLevelProperty);
+            }
+            set
+            {
+                SetValue(CharLevelProperty, value);
+            }
+        }
+
+        public static readonly PropertyData CharLevelProperty = RegisterProperty("CharLevel", typeof(int));
 
     }
 }

@@ -118,19 +118,32 @@
                 <fluent:RibbonGroupBox x:Name="SMGroup8" Header="Character Selecting" Width="199">
                     <fluent:Button Header="Select a character" Width="56" LargeIcon="{StaticResource PersonImage}" Command="{Binding SelectCharacterCommand}"/>
                     <ComboBox Width="120" Margin="10,25,0,0" IsEditable="False" KeyDown="ComboBox_KeyDown" ItemsSource="{Binding Characters, UpdateSourceTrigger=PropertyChanged}"
-                              SelectedItem="{Binding SelectedCharacter,UpdateSourceTrigger=PropertyChanged}"/>
+                              SelectedItem="{Binding SelectedCharacter, UpdateSourceTrigger=PropertyChanged}"/>
                 </fluent:RibbonGroupBox>
 
                 <fluent:RibbonGroupBox x:Name="SMGroup9" Header="Character Editing" Width="912">
-                    <fluent:Button Header="Revive Player" Width="44" LargeIcon="{StaticResource AngelImage}" Margin="0,0,10,0"/>
-                    <fluent:Button Header="Force Rename" Width="57" LargeIcon="{StaticResource RedoImage}" Margin="0,0,10,0"/>
-                    <fluent:Button Header="Ban Character" Width="63" LargeIcon="{StaticResource DeleteImage}" Margin="0,0,10,0"/>
-                    <fluent:Button Header="Request Character Customization" Width="99" LargeIcon="{StaticResource CustomizeImage}" Margin="0,0,10,0"/>
-                    <fluent:Button Header="Request Race Change" Width="76" LargeIcon="{StaticResource ChangeImage}" Margin="0,0,10,0"/>
-                    <fluent:Button Header="Request Faction Change" Width="93" LargeIcon="{StaticResource FlagImage}" Margin="0,0,10,0"/>
+                    <fluent:Button Header="Revive Player" Width="44" LargeIcon="{StaticResource AngelImage}" Margin="0,0,10,0" Command="{Binding ReviveCharCommand}"/>
+                    <fluent:Button Header="Force Rename" Width="57" LargeIcon="{StaticResource RedoImage}" Margin="0,0,10,0" Command="{Binding ForceRenameCommand}"/>
+                    <fluent:Button Header="Ban Character" Width="63" LargeIcon="{StaticResource DeleteImage}" Margin="0,0,10,0" Command="{Binding BanCharCommand}"/>
+                    <fluent:Button Header="Request Character Customization" Width="99" LargeIcon="{StaticResource CustomizeImage}" Margin="0,0,10,0" Command="{Binding CharCustomizeCommand}"/>
+                    <fluent:Button Header="Request Race Change" Width="76" LargeIcon="{StaticResource ChangeImage}" Margin="0,0,10,0" Command="{Binding CharRaceChangeCommand}"/>
+                    <fluent:Button Header="Request Faction Change" Width="93" LargeIcon="{StaticResource FlagImage}" Margin="0,0,10,0" Command="{Binding CharFactionChangeCommand}"/>
                     <fluent:Button Header="Show Player Information" Width="73" LargeIcon="{StaticResource InformationImage}" Margin="0,0,10,0"/>
-                    <fluent:Button Header="Set Level" Width="42" LargeIcon="{StaticResource UpImage}" Margin="0,0,10,0"/>
-                    <fluent:Button Header="Set Reputation" Width="71" LargeIcon="{StaticResource BarImage}" Margin="0,0,10,0"/>
+                    <!--<fluent:Button Header="Set Level" Width="42" LargeIcon="{StaticResource UpImage}" Margin="0,0,10,0"/>-->
+                    <fluent:DropDownButton Header="Set Level" Width="42" LargeIcon="{StaticResource UpImage}" Margin="0,0,10,0">
+                        <Grid>
+                            <TextBlock Text="Level: "/>
+                            <fluent:TextBox Width="50" Text="{Binding CharLevel, UpdateSourceTrigger=PropertyChanged}"/>
+                        </Grid>
+                        <fluent:Button Header="Change Level" fluent:RibbonAttachedProperties.RibbonSize="Middle" Command="{Binding CharChangeLevelCommand}"/>
+                    </fluent:DropDownButton>
+                    <!--<fluent:Button Header="Set Reputation" Width="71" LargeIcon="{StaticResource BarImage}" Margin="0,0,10,0"/>-->
+                    <fluent:DropDownButton Header="Set Reputation" Width="71" LargeIcon="{StaticResource BarImage}" Margin="0,0,10,0">
+                        <Grid>
+                            <TextBlock Text="Reputation: " Width="250"/>
+                            <fluent:TextBox Width="100"/>
+                        </Grid>
+                    </fluent:DropDownButton>
                     <fluent:Button Header="Set Skill Level" Width="52" LargeIcon="{StaticResource SkillImage}" Margin="0,0,10,0"/>
                     <fluent:Button Header="Remove Resurrection Sickness" Width="70" LargeIcon="{StaticResource HeartImage}" Margin="0,0,10,0"/>
                     <fluent:Button Header="Delete character" Width="63" LargeIcon="{StaticResource DeleteCharImage}" Margin="0,0,10,0"/>
