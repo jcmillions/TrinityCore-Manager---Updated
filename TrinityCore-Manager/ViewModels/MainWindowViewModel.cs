@@ -575,7 +575,7 @@ namespace TrinityCore_Manager.ViewModels
 
             _uiVisualizerService.ShowDialog(new CharacterSelectingViewModel(sm), (sender, e) =>
             {
-                if (!Characters.Any(p => p.Equals(sm.SelectedCharacter, StringComparison.OrdinalIgnoreCase)))
+                if (!Characters.Any(p => p.Equals(sm.SelectedCharacter, StringComparison.OrdinalIgnoreCase)) && !string.IsNullOrEmpty(sm.SelectedCharacter))
                 {
                     Characters.Add(sm.SelectedCharacter);
                     SelectedCharacter = sm.SelectedCharacter;
