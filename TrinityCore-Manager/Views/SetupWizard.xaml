@@ -100,6 +100,13 @@
                 </Grid>
             </xctk:WizardPage>
             <xctk:WizardPage x:Name="DatabaseSetup" Title="Setup TrinityCore Database" Description="Download/Install TrinityCore database" NextPage="{Binding ElementName=DatabaseSelection}">
+                <Grid>
+                    <Button Content="Download and Apply TrinityCore Database" HorizontalAlignment="Left" Margin="108,112,0,0" VerticalAlignment="Top" Width="307" Height="54"
+                            Command="{Binding DownloadApplyTDBCommand}" IsEnabled="{Binding TDBSetupWorking, Converter={StaticResource InverseBoolConverter}}"/>
+                    <ProgressBar HorizontalAlignment="Left" Height="30" Margin="10,238,0,0" VerticalAlignment="Top" Width="518" 
+                                 Visibility="{Binding TDBSetupWorking, Converter={StaticResource BoolVisibilityConverter}}"
+                                 Value="{Binding TDBSetupProgress, UpdateSourceTrigger=PropertyChanged}"/>
+                </Grid>
             </xctk:WizardPage>
             <xctk:WizardPage x:Name="DatabaseSelection" Title="Select Existing TrinityCore Databases" Description="Select the existing database for each type" PageType="Interior">
                 <Grid Margin="0,-49,0,49">

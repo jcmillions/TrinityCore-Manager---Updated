@@ -93,6 +93,9 @@
       <HintPath>..\packages\Quartz.2.2\lib\net40\Quartz.dll</HintPath>
     </Reference>
     <Reference Include="ReachFramework" />
+    <Reference Include="SevenZipSharp">
+      <HintPath>..\packages\SevenZipSharp.0.64\lib\SevenZipSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -243,6 +246,7 @@
     <Compile Include="TCP\TCClient.cs" />
     <Compile Include="TC\CMake.cs" />
     <Compile Include="TC\TCCompiler.cs" />
+    <Compile Include="TC\TDB.cs" />
     <Compile Include="TC\TrinityCoreRepository.cs" />
     <Compile Include="ViewModels\AccountsViewModel.cs" />
     <Compile Include="ViewModels\BackupDatabaseViewModel.cs" />
@@ -486,6 +490,9 @@
     <Resource Include="Resources\TrinityCoreManager.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="7zip\7z.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="mysql\mysqldump.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

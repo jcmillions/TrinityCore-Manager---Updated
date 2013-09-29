@@ -4,7 +4,7 @@ using MySql.Data.MySqlClient;
 
 namespace TrinityCore_Manager.Database
 {
-    abstract class MySqlDatabase
+    public abstract class MySqlDatabase
     {
 
         public string Host { get; set; }

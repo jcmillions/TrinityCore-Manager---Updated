@@ -53,105 +53,39 @@ namespace TrinityCore_Manager.Database
 
         }
 
-        //public static async Task BackupDatabaseStructure(this MySqlDatabase db, string outputFile, IProgress<int> progress, CancellationToken token)
-        //{
+        public static Task CreateDatabaseAsync(this MySqlDatabase db)
+        {
 
-        //    await Task.Run(() =>
-        //    {
+            return Task.Run(() =>
+            {
 
-        //        using (var backup = new MySqlBackup(db.ConnectionString))
-        //        {
+                MySqlConnectionStringBuilder connStr = new MySqlConnectionStringBuilder();
+                connStr.Server = db.Host;
+                connStr.Port = (uint)db.Port;
+                connStr.UserID = db.Username;
+                connStr.Password = db.Password;
+                
+                string connString = connStr.ToString();
 
-        //            var tcs = new TaskCompletionSource<bool>();
+                string nonQuery = String.Format("DROP DATABASE IF EXISTS {0}; CREATE DATABASE {0};", db.DatabaseName);
 
-        //            backup.ExportInfo.FileName = outputFile;
-        //            backup.ExportInfo.AddCreateDatabase = true;
-        //            backup.ExportInfo.AsynchronousMode = true;
-        //            backup.ExportInfo.AutoCloseConnection = true;
-        //            backup.ExportInfo.CalculateTotalRowsFromDatabase = false;
-        //            backup.ExportInfo.ExportEvents = false;
-        //            backup.ExportInfo.ExportFunctions = false;
-        //            backup.ExportInfo.ExportRows = false;
-        //            backup.ExportInfo.ExportStoredProcedures = false;
-        //            backup.ExportInfo.ExportTableStructure = true;
-        //            backup.ExportInfo.ExportTriggers = false;
-        //            backup.ExportInfo.ExportViews = false;
-        //            backup.ExportInfo.MaxSqlLength = 10000000;
-        //            backup.ExportInfo.ZipOutputFile = false;
+                using (MySqlConnection conn = new MySqlConnection(connString))
+                {
 
-        //            backup.Export();
+                    conn.Open();
 
-        //            backup.ExportProgressChanged += (sender, e) =>
-        //            {
+                    using (MySqlCommand cmd = new MySqlCommand(nonQuery, conn))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
 
-        //                progress.Report(e.PercentageCompleted);
+                    conn.Close();
+                
+                }
 
-        //                if (token.IsCancellationRequested)
-        //                {
-        //                    Thread.CurrentThread.Abort();
-        //                }
+            });
 
-        //            };
-
-        //            backup.ExportCompleted += (sender, e) => tcs.SetResult(true);
-
-        //            tcs.Task.Wait();
-
-        //        }
-
-        //    });
-
-        //}
-
-        //public static async Task BackupDatabase(this MySqlDatabase db, string outputFile, IProgress<int> progress, CancellationToken token)
-        //{
-
-        //    await Task.Run(() =>
-        //    {
-
-        //        using (var backup = new MySqlBackup(db.ConnectionString))
-        //        {
-
-        //            var tcs = new TaskCompletionSource<bool>();
-
-        //            backup.ExportInfo.FileName = outputFile;
-        //            backup.ExportInfo.AddCreateDatabase = false;
-        //            backup.ExportInfo.AsynchronousMode = true;
-        //            backup.ExportInfo.AutoCloseConnection = true;
-        //            backup.ExportInfo.CalculateTotalRowsFromDatabase = true;
-        //            backup.ExportInfo.ExportEvents = true;
-        //            backup.ExportInfo.ExportFunctions = true;
-        //            backup.ExportInfo.ExportRows = true;
-        //            backup.ExportInfo.ExportStoredProcedures = true;
-        //            backup.ExportInfo.ExportTableStructure = false;
-        //            backup.ExportInfo.ExportTriggers = true;
-        //            backup.ExportInfo.ExportViews = true;
-        //            backup.ExportInfo.MaxSqlLength = 10000000;
-        //            backup.ExportInfo.ZipOutputFile = false;
-
-        //            backup.Export();
-
-        //            backup.ExportProgressChanged += (sender, e) =>
-        //            {
-
-        //                progress.Report(e.PercentageCompleted);
-
-        //                if (token.IsCancellationRequested)
-        //                {
-        //                    Thread.CurrentThread.Abort();
-        //                }
-
-        //            };
-
-        //            backup.ExportCompleted += (sender, e) => tcs.SetResult(true);
-
-        //            tcs.Task.Wait();
-
-        //        }
-
-        //    });
-
-        //}
+        }
 
         public static async Task Restore(this MySqlDatabase db, string inputFile, IProgress<int> progress, CancellationToken token)
         {

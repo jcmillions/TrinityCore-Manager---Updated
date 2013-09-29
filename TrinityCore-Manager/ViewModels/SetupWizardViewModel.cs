@@ -1,18 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Catel.Data;
 using Catel.MVVM;
 using Catel.MVVM.Services;
 using MySql.Data.MySqlClient;
+using TrinityCore_Manager.Database;
 using TrinityCore_Manager.Misc;
 using TrinityCore_Manager.Models;
 using TrinityCore_Manager.Properties;
 using TrinityCore_Manager.Security;
+using TrinityCore_Manager.TC;
 using Xceed.Wpf.Toolkit;
 using Xceed.Wpf.Toolkit.Core;
 
@@ -36,6 +40,8 @@ namespace TrinityCore_Manager.ViewModels
 
         public Command WorldDB { get; private set; }
 
+        public Command DownloadApplyTDBCommand { get; private set; }
+
         public SetupWizardViewModel(IUIVisualizerService uiVisualizerService, IPleaseWaitService pleaseWaitService, IMessageService messageService)
         {
 
@@ -51,12 +57,68 @@ namespace TrinityCore_Manager.ViewModels
             CharDB = new Command(SelectCharDB);
             WorldDB = new Command(SelectWorldDB);
 
+            DownloadApplyTDBCommand = new Command(DownloadApplyTDB);
+
         }
 
         public SetupWizardViewModel(WizardModel model, IUIVisualizerService uiVisualizerService, IPleaseWaitService pleaseWaitService, IMessageService messageService)
             : this(uiVisualizerService, pleaseWaitService, messageService)
         {
             Wizard = model;
+        }
+
+        private async void DownloadApplyTDB()
+        {
+
+            var result = _messageService.Show("This will create the 'world' database. If the database already exists, it will be overwritten! Continue?", "Warning!", MessageButton.YesNo, MessageImage.Warning);
+
+            if (result == MessageResult.Yes)
+            {
+
+                Progress<int> progress = new Progress<int>(val =>
+                {
+                    TDBSetupProgress = val;
+                });
+
+                TDBSetupWorking = true;
+
+                string tempDir = FileHelper.GenerateTempDirectory();
+                string file = Path.Combine(tempDir, "TDB.7z");
+                string extractTo = Path.Combine(tempDir, "TDB");
+
+                Directory.CreateDirectory(extractTo);
+
+                await TDB.DownloadTDBAsync(progress, file);
+                await TDB.Extract7zAsync(file, extractTo, progress);
+
+
+                string[] files = Directory.GetFiles(extractTo);
+
+                string tdbSql = "";
+
+                foreach (string f in files)
+                {
+                    if (Path.GetFileName(f).StartsWith("TDB_full"))
+                        tdbSql = f;
+
+                }
+
+                if (!string.IsNullOrEmpty(tdbSql))
+                {
+
+                    MySqlDatabase db = new WorldDatabase(MySQLHost, MySQLPort, MySQLUsername, MySQLPassword, "world");
+                    await db.CreateDatabaseAsync();
+
+                    await TDB.ApplyAsync(tdbSql, db, progress, new CancellationTokenSource());
+
+                }
+
+                FileHelper.DeleteDirectory(tempDir);
+
+                TDBSetupWorking = false;
+
+            }
+
         }
 
         private void SelectAuthDB()
@@ -518,6 +580,34 @@ namespace TrinityCore_Manager.ViewModels
         }
 
         public static readonly PropertyData TCMVersionProperty = RegisterProperty("TCMVersion", typeof(string));
+
+        public int TDBSetupProgress
+        {
+            get
+            {
+                return GetValue<int>(TDBSetupProgressProperty);
+            }
+            set
+            {
+                SetValue(TDBSetupProgressProperty, value);
+            }
+        }
+
+        public static readonly PropertyData TDBSetupProgressProperty = RegisterProperty("TDBSetupProgress", typeof(int));
+
+        public bool TDBSetupWorking
+        {
+            get
+            {
+                return GetValue<bool>(TDBSetupWorkingProperty);
+            }
+            set
+            {
+                SetValue(TDBSetupWorkingProperty, value);
+            }
+        }
+
+        public static readonly PropertyData TDBSetupWorkingProperty = RegisterProperty("TDBSetupWorking", typeof(bool));
 
     }
 }
