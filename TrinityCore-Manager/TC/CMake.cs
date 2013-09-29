@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Win32;
 using TrinityCore_Manager.Misc;
 
 namespace TrinityCore_Manager.TC
@@ -10,7 +11,53 @@ namespace TrinityCore_Manager.TC
     static class CMake
     {
 
-        public static readonly string CMakeBinLocation = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "CMake", "bin");
+        public static string GetCMakeBinLocation()
+        {
+
+            RegistryKey kitWare;
+
+            if (Environment.Is64BitOperatingSystem)
+                kitWare = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Wow6432Node\\Kitware");
+            else
+                kitWare = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Kitware");
+
+            if (kitWare == null)
+                return null;
+
+            string cMakeFolder = String.Empty;
+
+            foreach (string subkey in kitWare.GetSubKeyNames())
+            {
+
+                cMakeFolder = subkey;
+            
+                break;
+            
+            }
+
+            if (string.IsNullOrEmpty(cMakeFolder))
+                return null;
+
+            using (RegistryKey cMake = kitWare.OpenSubKey(cMakeFolder))
+            {
+
+                if (cMake == null)
+                    return null;
+
+                string path = cMake.GetValue(null).ToString();
+                
+                if (path == String.Empty)
+                {
+                    return null;
+                }
+
+                kitWare.Dispose();
+
+                return Path.Combine(path, "bin");
+
+            }
+
+        }
 
         public static async Task<bool> Generate(string sourceDir, string destDir, bool x64, IProgress<string> progress, CancellationToken token)
         {
@@ -18,10 +65,12 @@ namespace TrinityCore_Manager.TC
             return await Task.Run(() =>
             {
 
-                if (!Directory.Exists(CMakeBinLocation))
+                string cMakeBinLoc = GetCMakeBinLocation();
+
+                if (!Directory.Exists(cMakeBinLoc))
                     return false;
 
-                string cmake = Path.Combine(CMakeBinLocation, "cmake.exe");
+                string cmake = Path.Combine(cMakeBinLoc, "cmake.exe");
 
                 if (!File.Exists(cmake))
                     return false;
