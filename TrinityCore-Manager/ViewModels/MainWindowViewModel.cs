@@ -15,6 +15,8 @@ using Catel.MVVM;
 using Catel.MVVM.Services;
 using Ookii.Dialogs.Wpf;
 using TrinityCore_Manager.Clients;
+using TrinityCore_Manager.Database.Classes;
+using TrinityCore_Manager.Database.Enums;
 using TrinityCore_Manager.Exceptions;
 using TrinityCore_Manager.Extensions;
 using TrinityCore_Manager.Misc;
@@ -83,6 +85,8 @@ namespace TrinityCore_Manager.ViewModels
 
         public Command CharChangeLevelCommand { get; private set; }
 
+        public Command ShowPlayerInfoCommand { get; private set; }
+
         #endregion
 
         public MainWindowViewModel(IUIVisualizerService uiVisualizerService, IPleaseWaitService pleaseWaitService, IMessageService messageService)
@@ -127,6 +131,7 @@ namespace TrinityCore_Manager.ViewModels
             CharRaceChangeCommand = new Command(CharRaceChange);
             CharFactionChangeCommand = new Command(CharFactionChange);
             CharChangeLevelCommand = new Command(CharChangeLevel);
+            ShowPlayerInfoCommand = new Command(ShowPlayerInfo);
 
             Characters = new ObservableCollection<string>();
 
@@ -136,6 +141,80 @@ namespace TrinityCore_Manager.ViewModels
             SetColorTheme(Settings.Default.ColorTheme);
 
             Application.Current.Exit += Current_Exit;
+        }
+
+        private async void ShowPlayerInfo()
+        {
+
+            if (string.IsNullOrEmpty(SelectedCharacter))
+            {
+
+                _messageService.ShowError("No character selected!");
+
+                return;
+
+            }
+
+            TCCharacter c = await TCManager.Instance.CharDatabase.GetCharacter(SelectedCharacter);
+
+            if (c != null)
+            {
+
+                Account acct = await TCManager.Instance.AuthDatabase.GetAccount(c.Account);
+
+                if (acct != null)
+                {
+
+                    GMLevel gmLvl = await TCManager.Instance.AuthDatabase.GetAccountAccess(c.Account);
+
+                    string gmLevelStr;
+
+                    switch (gmLvl)
+                    {
+
+                        case GMLevel.GM:
+
+                            gmLevelStr = "GM";
+
+                            break;
+
+                        default:
+
+                            gmLevelStr = "Player";
+
+                            break;
+
+                    }
+
+                    int gold = c.Money / 10000;
+                    int silver = (c.Money % 10000) / 100;
+                    int copper = (c.Money % 10000) % 100;
+
+                    string money = String.Format("{0} Gold {1} Silver {2} Copper", gold, silver, copper);
+
+                    PlayerInformationModel model = new PlayerInformationModel
+                    {
+                        CharacterName = c.Name,
+                        AccountId = c.Account.ToString(),
+                        AccountName = acct.Username,
+                        Class = c.Class.GetCharacterClassName(),
+                        Email = acct.Email,
+                        GMLevel = gmLevelStr,
+                        LastIp = acct.LastIp,
+                        LastLogin = acct.LastLogin.ToString(),
+                        Level = c.Level.ToString(),
+                        Money = money,
+                        PlayedTime = TimeSpan.FromSeconds(c.TotalTime).ToReadableString(),
+                        Race = c.Race.GetCharacterRaceName(),
+                        TotalKills = c.TotalKills.ToString(),
+                    };
+
+                    _uiVisualizerService.Show(new PlayerInformationViewModel(model));
+
+                }
+
+            }
+
         }
 
         private async void CharChangeLevel()

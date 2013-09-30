@@ -128,7 +128,7 @@
                     <fluent:Button Header="Request Character Customization" Width="99" LargeIcon="{StaticResource CustomizeImage}" Margin="0,0,10,0" Command="{Binding CharCustomizeCommand}"/>
                     <fluent:Button Header="Request Race Change" Width="76" LargeIcon="{StaticResource ChangeImage}" Margin="0,0,10,0" Command="{Binding CharRaceChangeCommand}"/>
                     <fluent:Button Header="Request Faction Change" Width="93" LargeIcon="{StaticResource FlagImage}" Margin="0,0,10,0" Command="{Binding CharFactionChangeCommand}"/>
-                    <fluent:Button Header="Show Player Information" Width="73" LargeIcon="{StaticResource InformationImage}" Margin="0,0,10,0"/>
+                    <fluent:Button Header="Show Player Information" Width="73" LargeIcon="{StaticResource InformationImage}" Margin="0,0,10,0" Command="{Binding ShowPlayerInfoCommand}"/>
                     <!--<fluent:Button Header="Set Level" Width="42" LargeIcon="{StaticResource UpImage}" Margin="0,0,10,0"/>-->
                     <fluent:DropDownButton Header="Set Level" Width="42" LargeIcon="{StaticResource UpImage}" Margin="0,0,10,0">
                         <Grid>

@@ -24,19 +24,14 @@ namespace TrinityCore_Manager.TC
             if (kitWare == null)
                 return null;
 
-            string cMakeFolder = String.Empty;
 
-            foreach (string subkey in kitWare.GetSubKeyNames())
-            {
+            string[] subKeys = kitWare.GetSubKeyNames();
 
-                cMakeFolder = subkey;
-            
-                break;
-            
-            }
 
-            if (string.IsNullOrEmpty(cMakeFolder))
+            if (subKeys.Length == 0)
                 return null;
+
+            string cMakeFolder = subKeys[0];
 
             using (RegistryKey cMake = kitWare.OpenSubKey(cMakeFolder))
             {
