@@ -89,6 +89,8 @@ namespace TrinityCore_Manager.ViewModels
 
         #endregion
 
+        public Command SendMessageCommand { get; private set; }
+
         public MainWindowViewModel(IUIVisualizerService uiVisualizerService, IPleaseWaitService pleaseWaitService, IMessageService messageService)
         {
 
@@ -132,6 +134,7 @@ namespace TrinityCore_Manager.ViewModels
             CharFactionChangeCommand = new Command(CharFactionChange);
             CharChangeLevelCommand = new Command(CharChangeLevel);
             ShowPlayerInfoCommand = new Command(ShowPlayerInfo);
+            SendMessageCommand = new Command(SendMessage);
 
             Characters = new ObservableCollection<string>();
 
@@ -141,6 +144,31 @@ namespace TrinityCore_Manager.ViewModels
             SetColorTheme(Settings.Default.ColorTheme);
 
             Application.Current.Exit += Current_Exit;
+        }
+
+        private async void SendMessage()
+        {
+
+            if (!string.IsNullOrEmpty(MessageText))
+            {
+
+                if (TCManager.Instance.Online)
+                {
+
+                    if (AnnouncementSelected)
+                        await TCAction.AnnounceToServer(MessageText);
+                    else if (ServerNotificationSelected)
+                        await TCAction.NotifiyServer(MessageText);
+                    else if (GMAnnouncementSelected)
+                        await TCAction.NotifyGMs(MessageText);
+
+
+                }
+
+                MessageText = String.Empty;
+
+            }
+
         }
 
         private async void ShowPlayerInfo()
@@ -1186,6 +1214,62 @@ namespace TrinityCore_Manager.ViewModels
         }
 
         public static readonly PropertyData CharLevelProperty = RegisterProperty("CharLevel", typeof(int));
+
+        public bool AnnouncementSelected
+        {
+            get
+            {
+                return GetValue<bool>(AnnouncementSelectedProperty);
+            }
+            set
+            {
+                SetValue(AnnouncementSelectedProperty, value);
+            }
+        }
+
+        public static readonly PropertyData AnnouncementSelectedProperty = RegisterProperty("AnnouncementSelected", typeof(bool));
+
+        public bool ServerNotificationSelected
+        {
+            get
+            {
+                return GetValue<bool>(ServerNotificationSelectedProperty);
+            }
+            set
+            {
+                SetValue(ServerNotificationSelectedProperty, value);
+            }
+        }
+
+        public static readonly PropertyData ServerNotificationSelectedProperty = RegisterProperty("ServerNotificationSelected", typeof(bool));
+
+        public bool GMAnnouncementSelected
+        {
+            get
+            {
+                return GetValue<bool>(GMAnnouncementSelectedProperty);
+            }
+            set
+            {
+                SetValue(GMAnnouncementSelectedProperty, value);
+            }
+        }
+
+        public static readonly PropertyData GMAnnouncementSelectedProperty = RegisterProperty("GMAnnouncementSelected", typeof(bool));
+
+        public string MessageText
+        {
+            get
+            {
+                return GetValue<string>(MessageTextProperty);
+            }
+            set
+            {
+                SetValue(MessageTextProperty, value);
+            }
+        }
+
+        public static readonly PropertyData MessageTextProperty = RegisterProperty("MessageText", typeof(string));
 
     }
 }

@@ -226,12 +226,12 @@
                 </fluent:RibbonGroupBox>
 
                 <fluent:RibbonGroupBox x:Name="SMGroup2_Copy" Header="Send Messages" Width="649">
-                    <fluent:RadioButton GroupName="SendMessageRadioButtons" Header="Server Announcement" HorizontalAlignment="Left" Padding="0"/>
-                    <fluent:RadioButton GroupName="SendMessageRadioButtons" Header="Server Notification" HorizontalAlignment="Left" Padding="0"/>
-                    <fluent:RadioButton GroupName="SendMessageRadioButtons" Header="Announcement to GM's" HorizontalAlignment="Left" Padding="0"/>
-                    <fluent:TextBox InputWidth="400" BorderThickness="0" Margin="0" Height="83" Width="410"/>
+                    <fluent:RadioButton GroupName="SendMessageRadioButtons" Header="Server Announcement" HorizontalAlignment="Left" Padding="0" IsChecked="{Binding AnnouncementSelected}"/>
+                    <fluent:RadioButton GroupName="SendMessageRadioButtons" Header="Server Notification" HorizontalAlignment="Left" Padding="0" IsChecked="{Binding ServerNotificationSelected}"/>
+                    <fluent:RadioButton GroupName="SendMessageRadioButtons" Header="Announcement to GM's" HorizontalAlignment="Left" Padding="0" IsChecked="{Binding GMAnnouncementSelected}"/>
+                    <fluent:TextBox InputWidth="400" BorderThickness="0" Margin="0" Height="83" Width="410" Text="{Binding MessageText, UpdateSourceTrigger=PropertyChanged}"/>
                     <fluent:Button Header="Send Message" BorderThickness="0" Padding="0" Margin="7,0,0,0" fluent:RibbonAttachedProperties.RibbonSize="Large"
-                                   LargeIcon="{StaticResource MessageImage}"/>
+                                   LargeIcon="{StaticResource MessageImage}" Command="{Binding SendMessageCommand}"/>
                 </fluent:RibbonGroupBox>
             </fluent:RibbonTabItem>
         </fluent:Ribbon>
