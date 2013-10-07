@@ -52,6 +52,7 @@
         <BitmapImage x:Key="RedPinImage" UriSource="Resources/redpin.ico"/>
         <BitmapImage x:Key="MessageImage" UriSource="Resources/message.ico"/>
         <BitmapImage x:Key="WizardImage" UriSource="Resources/wizard.ico"/>
+        <BitmapImage x:Key="ManageImage" UriSource="Resources/manage.ico"/>
     </fluent:RibbonWindow.Resources>
 
     <i:Interaction.Behaviors>
@@ -100,13 +101,13 @@
                 </fluent:RibbonGroupBox>
 
                 <fluent:RibbonGroupBox x:Name="SMGroup5" Header="Account Banning" Width="135">
+
                     <fluent:Button Header="Ban Account" Width="53" LargeIcon="{StaticResource DeleteImage}" Margin="0,0,25,0"/>
                     <fluent:Button Header="Unban Account" Width="53" LargeIcon="{StaticResource UnlockImage}"/>
                 </fluent:RibbonGroupBox>
 
-                <fluent:RibbonGroupBox x:Name="SMGroup6" Header="IP Banning" Width="135">
-                    <fluent:Button Header="Ban IP" Width="53" LargeIcon="{StaticResource DeleteImage}" Margin="0,0,25,0"/>
-                    <fluent:Button Header="Unban IP" Width="53" LargeIcon="{StaticResource UnlockImage}"/>
+                <fluent:RibbonGroupBox x:Name="SMGroup6" Header="IP Banning" Width="90">
+                    <fluent:Button Header="IP Management" LargeIcon="{StaticResource ManageImage}" Command="{Binding IPManagementCommand}"/>
                 </fluent:RibbonGroupBox>
 
                 <fluent:RibbonGroupBox x:Name="SMGroup7" Header="Account Clean-Up" Width="99">

@@ -91,6 +91,8 @@ namespace TrinityCore_Manager.ViewModels
 
         public Command SendMessageCommand { get; private set; }
 
+        public Command IPManagementCommand { get; private set; }
+
         public MainWindowViewModel(IUIVisualizerService uiVisualizerService, IPleaseWaitService pleaseWaitService, IMessageService messageService)
         {
 
@@ -135,6 +137,7 @@ namespace TrinityCore_Manager.ViewModels
             CharChangeLevelCommand = new Command(CharChangeLevel);
             ShowPlayerInfoCommand = new Command(ShowPlayerInfo);
             SendMessageCommand = new Command(SendMessage);
+            IPManagementCommand = new Command(IPManagement);
 
             Characters = new ObservableCollection<string>();
 
@@ -144,6 +147,22 @@ namespace TrinityCore_Manager.ViewModels
             SetColorTheme(Settings.Default.ColorTheme);
 
             Application.Current.Exit += Current_Exit;
+        }
+
+        private async void IPManagement()
+        {
+
+            List<IPModel> ips = new List<IPModel>();
+
+            List<IPBan> ipBans = await TCManager.Instance.AuthDatabase.GetIPBans();
+
+            ips.AddRange(ipBans.Select(p => new IPModel() { IPAddress = p.IP }));
+
+
+            IPManagementModel model = new IPManagementModel(ips);
+
+            _uiVisualizerService.Show(new IPManagementViewModel(model, _uiVisualizerService, _pleaseWaitService, _messageService));
+
         }
 
         private async void SendMessage()
