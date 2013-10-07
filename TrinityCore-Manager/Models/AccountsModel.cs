@@ -18,6 +18,11 @@ namespace TrinityCore_Manager.Models
             TheAccounts = new ObservableCollection<AccountModel>();
         }
 
+        public AccountsModel(IEnumerable<AccountModel> accounts)
+        {
+            TheAccounts = new ObservableCollection<AccountModel>(accounts);
+        }
+
         protected AccountsModel(SerializationInfo info, StreamingContext context)
             : base(info, context) { }
 

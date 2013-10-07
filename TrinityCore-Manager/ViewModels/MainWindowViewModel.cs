@@ -93,6 +93,8 @@ namespace TrinityCore_Manager.ViewModels
 
         public Command IPManagementCommand { get; private set; }
 
+        public Command AccountManagementCommand { get; private set; }
+
         public MainWindowViewModel(IUIVisualizerService uiVisualizerService, IPleaseWaitService pleaseWaitService, IMessageService messageService)
         {
 
@@ -138,6 +140,7 @@ namespace TrinityCore_Manager.ViewModels
             ShowPlayerInfoCommand = new Command(ShowPlayerInfo);
             SendMessageCommand = new Command(SendMessage);
             IPManagementCommand = new Command(IPManagement);
+            AccountManagementCommand = new Command(AccountManagement);
 
             Characters = new ObservableCollection<string>();
 
@@ -147,6 +150,24 @@ namespace TrinityCore_Manager.ViewModels
             SetColorTheme(Settings.Default.ColorTheme);
 
             Application.Current.Exit += Current_Exit;
+        }
+
+        private async void AccountManagement()
+        {
+
+            List<AccountModel> accountList = new List<AccountModel>();
+
+            List<BannedAccount> accts = await TCManager.Instance.AuthDatabase.GetBannedAccounts();
+
+            foreach (var acct in accts)
+            {
+                accountList.Add(new AccountModel((await TCManager.Instance.AuthDatabase.GetAccount(acct.Id)).Username));
+            }
+
+            AccountsModel acctsModel = new AccountsModel(accountList);
+
+            _uiVisualizerService.Show(new AccountManagementViewModel(acctsModel, _uiVisualizerService, _pleaseWaitService, _messageService));
+
         }
 
         private async void IPManagement()

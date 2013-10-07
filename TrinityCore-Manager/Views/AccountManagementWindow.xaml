@@ -1,0 +1,28 @@
+﻿<Window x:Class="TrinityCore_Manager.Views.AccountManagementWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:viewModels="clr-namespace:TrinityCore_Manager.ViewModels"
+        xmlns:catel="http://catel.codeplex.com"
+        Title="AccountManagementWindow" Height="482" Width="404">
+
+    <i:Interaction.Behaviors>
+        <catel:WindowBehavior x:Name="mvvmBehavior" ViewModelType="{x:Type viewModels:AccountManagementViewModel}"/>
+    </i:Interaction.Behaviors>
+
+    <Grid>
+        <Label Content="Username:" HorizontalAlignment="Left" Margin="23,24,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="94,28,0,0" TextWrapping="Wrap" Text="{Binding UsernameText}" VerticalAlignment="Top" Width="189"/>
+        <Button Content="Ban Account" HorizontalAlignment="Left" Margin="288,29,0,0" VerticalAlignment="Top" Width="75" Command="{Binding BanAccountCommand}"/>
+        <ListView HorizontalAlignment="Left" Height="331" Margin="10,66,0,0" VerticalAlignment="Top" Width="376" 
+                  ItemsSource="{Binding TheAccounts, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedAccount}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Username" Width="200" DisplayMemberBinding="{Binding Username}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Content="Unban Selected Account" HorizontalAlignment="Left" Margin="131,404,0,0" VerticalAlignment="Top" Width="139" Height="30" Command="{Binding UnbanAccountCommand}"/>
+
+    </Grid>
+</Window>
