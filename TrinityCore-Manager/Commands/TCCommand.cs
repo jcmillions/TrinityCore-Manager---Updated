@@ -50,7 +50,7 @@
         [TCCommand("character rename", 1)]
         ForceCharRename,
 
-        [TCCommand("ban character", 3)]
+        [TCCommand("ban character", 1)]
         BanCharacter,
 
         [TCCommand("account lock", 2)]

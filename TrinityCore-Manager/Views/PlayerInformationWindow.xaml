@@ -4,36 +4,46 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:viewModels="clr-namespace:TrinityCore_Manager.ViewModels"
         xmlns:catel="http://catel.codeplex.com"
-        Title="PlayerInformationWindow" Height="447" Width="268">
+        Title="Player Information" Height="427" Width="338" ResizeMode="NoResize" Icon="/TrinityCore-Manager;component/Resources/information.ico">
 
     <i:Interaction.Behaviors>
         <catel:WindowBehavior x:Name="mvvmBehavior" ViewModelType="{x:Type viewModels:PlayerInformationViewModel}"/>
     </i:Interaction.Behaviors>
 
     <Grid>
-        <Label Content="{Binding CharacterName}" HorizontalAlignment="Left" Margin="107,3,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <Label Content="Last Login:" HorizontalAlignment="Left" Margin="40,40,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding LastLogin}" HorizontalAlignment="Left" Margin="106,40,0,0" VerticalAlignment="Top"/>
-        <Label Content="Last IP:" HorizontalAlignment="Left" Margin="40,71,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding LastIp}" HorizontalAlignment="Left" Margin="106,71,0,0" VerticalAlignment="Top"/>
-        <Label Content="Email:" HorizontalAlignment="Left" Margin="40,104,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding Email}" HorizontalAlignment="Left" Margin="106,104,0,0" VerticalAlignment="Top"/>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF858484" Offset="0"/>
+                <GradientStop Color="#FF4B4A4A" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="133*"/>
+            <RowDefinition Height="65*"/>
+        </Grid.RowDefinitions>
+        <Label Content="{Binding CharacterName}" HorizontalAlignment="Left" Margin="136,10,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label Content="Last Login:" Margin="40,264,0,0" VerticalAlignment="Top" Grid.RowSpan="2" HorizontalAlignment="Left" Width="66"/>
+        <Label Content="{Binding LastLogin}" HorizontalAlignment="Left" Margin="136,265,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
+        <Label Content="Last IP:" HorizontalAlignment="Left" Margin="40,29,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+        <Label Content="{Binding LastIp}" HorizontalAlignment="Left" Margin="136,29,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+        <Label Content="Email:" HorizontalAlignment="Left" Margin="40,107,0,0" VerticalAlignment="Top" Height="28"/>
+        <Label Content="{Binding Email}" HorizontalAlignment="Left" Margin="136,107,0,0" VerticalAlignment="Top"/>
         <Label Content="Race:" HorizontalAlignment="Left" Margin="40,140,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding Race}" HorizontalAlignment="Left" Margin="106,140,0,0" VerticalAlignment="Top"/>
-        <Label Content="Class:" HorizontalAlignment="Left" Margin="40,176,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding Class}" HorizontalAlignment="Left" Margin="106,176,0,0" VerticalAlignment="Top"/>
-        <Label Content="Money:" HorizontalAlignment="Left" Margin="40,211,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding Money}" HorizontalAlignment="Left" Margin="106,211,0,0" VerticalAlignment="Top"/>
-        <Label Content="Total Kills:" HorizontalAlignment="Left" Margin="40,244,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding TotalKills}" HorizontalAlignment="Left" Margin="106,244,0,0" VerticalAlignment="Top"/>
-        <Label Content="Account Name:" HorizontalAlignment="Left" Margin="40,276,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding AccountName}" HorizontalAlignment="Left" Margin="136,276,0,0" VerticalAlignment="Top"/>
-        <Label Content="Account Id:" HorizontalAlignment="Left" Margin="40,310,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding AccountId}" HorizontalAlignment="Left" Margin="115,310,0,0" VerticalAlignment="Top"/>
-        <Label Content="GM Level:" HorizontalAlignment="Left" Margin="40,343,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding GMLevel}" HorizontalAlignment="Left" Margin="107,343,0,0" VerticalAlignment="Top"/>
-        <Label Content="Play Time:" HorizontalAlignment="Left" Margin="40,370,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding PlayedTime}" HorizontalAlignment="Left" Margin="107,370,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding Race}" HorizontalAlignment="Left" Margin="136,140,0,0" VerticalAlignment="Top"/>
+        <Label Content="Class:" Margin="40,168,0,0" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="39"/>
+        <Label Content="{Binding Class}" HorizontalAlignment="Left" Margin="136,167,0,0" VerticalAlignment="Top"/>
+        <Label Content="Money:" HorizontalAlignment="Left" Margin="40,202,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding Money}" HorizontalAlignment="Left" Margin="136,203,0,0" VerticalAlignment="Top"/>
+        <Label Content="Total Kills:" HorizontalAlignment="Left" Margin="40,233,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding TotalKills}" HorizontalAlignment="Left" Margin="136,234,0,0" VerticalAlignment="Top"/>
+        <Label Content="Account Name:" HorizontalAlignment="Left" Margin="40,45,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding AccountName}" HorizontalAlignment="Left" Margin="136,46,0,0" VerticalAlignment="Top"/>
+        <Label Content="Account Id:" HorizontalAlignment="Left" Margin="40,76,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding AccountId}" HorizontalAlignment="Left" Margin="136,77,0,0" VerticalAlignment="Top"/>
+        <Label Content="Rank:" HorizontalAlignment="Left" Margin="40,60,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+        <Label Content="{Binding GMLevel}" HorizontalAlignment="Left" Margin="136,61,0,0" VerticalAlignment="Top" Grid.Row="1" Foreground="Chartreuse"/>
+        <Label Content="Play Time:" HorizontalAlignment="Left" Margin="40,91,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+        <Label Content="{Binding PlayedTime}" HorizontalAlignment="Left" Margin="136,91,0,0" VerticalAlignment="Top" Grid.Row="1"/>
 
 
 
