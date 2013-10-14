@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -40,7 +42,7 @@ namespace TrinityCore_Manager.TC
                     return null;
 
                 string path = cMake.GetValue(null).ToString();
-                
+
                 if (path == String.Empty)
                 {
                     return null;
@@ -54,10 +56,10 @@ namespace TrinityCore_Manager.TC
 
         }
 
-        public static async Task<bool> Generate(string sourceDir, string destDir, bool x64, IProgress<string> progress, CancellationToken token)
+        public static Task<bool> Generate(string sourceDir, string destDir, bool x64, IProgress<string> progress, CancellationToken token)
         {
 
-            return await Task.Run(() =>
+            return Task.Run(() =>
             {
 
                 string cMakeBinLoc = GetCMakeBinLocation();
@@ -72,25 +74,67 @@ namespace TrinityCore_Manager.TC
 
                 string args = String.Empty;
 
+                VSVersion ver = VisualStudio.Version;
+
                 if (x64)
                 {
-                    if (VisualStudio.Version == VSVersion.VisualStudio11)
-                        args = String.Format("-G \"Visual Studio 11 Win64\" \"{0}\"", sourceDir);
-                    else if (VisualStudio.Version == VSVersion.VisualStudio10)
-                        args = String.Format("-G \"Visual Studio 10 Win64\" \"{0}\"", sourceDir);
+                    if (ver == VSVersion.VisualStudio12)
+                        args = String.Format("/C \"\"{0}\" -G \"Visual Studio 12 Win64\" \"{1}\"\"", cmake, sourceDir);
+                    else if (ver == VSVersion.VisualStudio11)
+                        args = String.Format("/C \"\"{0}\" -G \"Visual Studio 11 Win64\" \"{1}\"\"", cmake, sourceDir);
+                    else if (ver == VSVersion.VisualStudio10)
+                        args = String.Format("/C \"\"{0}\" -G \"Visual Studio 10 Win64\" \"{1}\"\"", cmake, sourceDir);
                 }
                 else
                 {
-                    if (VisualStudio.Version == VSVersion.VisualStudio11)
-                        args = String.Format("-G \"Visual Studio 11\" \"{0}\"", sourceDir);
-                    else if (VisualStudio.Version == VSVersion.VisualStudio10)
-                        args = String.Format("-G \"Visual Studio 10 \" \"{0}\"", sourceDir);
+                    if (ver == VSVersion.VisualStudio12)
+                        args = String.Format("/C \"\"{0}\" -G \"Visual Studio 12\" \"{1}\"\"", cmake, sourceDir);
+                    else if (ver == VSVersion.VisualStudio11)
+                        args = String.Format("/C \"\"{0}\" -G \"Visual Studio 11\" \"{1}\"\"", cmake, sourceDir);
+                    else if (ver == VSVersion.VisualStudio10)
+                        args = String.Format("/C \"\"{0}\" -G \"Visual Studio 10\" \"{1}\"\"", cmake, sourceDir);
                 }
 
                 if (!String.IsNullOrEmpty(args))
                 {
 
-                    var proc = ProcessHelper.StartProcess(cmake, destDir, args);
+                    var envPath = Environment.GetEnvironmentVariable("PATH");
+
+                    if (envPath == null)
+                        return false;
+
+                    var envPathSplit = envPath.Split(';');
+
+
+                    string gitLoc = TrinityCoreRepository.GetGitLocation();
+
+                    if (string.IsNullOrEmpty(gitLoc))
+                        return false;
+
+                    gitLoc = gitLoc.Replace("git.exe", String.Empty);
+
+                    var gitPath = envPathSplit.FirstOrDefault(p => p.Equals(gitLoc, StringComparison.OrdinalIgnoreCase));
+
+                    var psi = new ProcessStartInfo("cmd.exe");
+
+                    if (string.IsNullOrEmpty(gitPath))
+                    {
+                        psi.EnvironmentVariables["PATH"] = string.Format("{0};{1}", envPath, gitLoc);
+                    }
+
+                    psi.WorkingDirectory = destDir;
+
+                    psi.UseShellExecute = false;
+
+                    psi.CreateNoWindow = true;
+
+                    psi.RedirectStandardOutput = true;
+                    psi.RedirectStandardError = true;
+                    psi.RedirectStandardInput = true;
+
+                    psi.Arguments = args;
+
+                    Process proc = ProcessHelper.StartProcess(psi);
 
                     if (proc == null)
                         return false;

@@ -119,6 +119,12 @@ namespace TrinityCore_Manager.Misc
 
             psi.Arguments = arguments;
 
+            return StartProcess(psi);
+        }
+
+        public static Process StartProcess(ProcessStartInfo psi)
+        {
+
             var proc = new Process();
             proc.StartInfo = psi;
             proc.EnableRaisingEvents = true;
@@ -130,9 +136,9 @@ namespace TrinityCore_Manager.Misc
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "The file could not be succesfully opened!", MessageBoxButton.OK, MessageBoxImage.Error);
                 return null;
             }
+
         }
 
     }

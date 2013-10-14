@@ -14,6 +14,7 @@ namespace TrinityCore_Manager.Misc
 
         private const string VS10RegKey = @"Software\Microsoft\VisualStudio\10.0";
         private const string VS11RegKey = @"Software\Microsoft\VisualStudio\11.0";
+        private const string VS12RegKey = @"Software\Microsoft\VisualStudio\12.0";
 
         private const string DevEnvKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\devenv.exe";
         private const string VC10Key = @"SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\VCExpress.exe";
@@ -28,7 +29,11 @@ namespace TrinityCore_Manager.Misc
 
                 RegistryKey vs10 = Registry.LocalMachine.OpenSubKey(VS10RegKey);
                 RegistryKey vs11 = Registry.LocalMachine.OpenSubKey(VS11RegKey);
+                RegistryKey vs12 = Registry.LocalMachine.OpenSubKey(VS12RegKey);
 
+
+                if (vs12 != null && vs12.GetValueNames().Length > 0)
+                    return VSVersion.VisualStudio12;
                 if (vs11 != null && vs11.GetValueNames().Length > 0)
                     return VSVersion.VisualStudio11;
                 if (vs10 != null && vs10.GetValueNames().Length > 0)
@@ -81,7 +86,8 @@ namespace TrinityCore_Manager.Misc
     {
         None,
         VisualStudio10,
-        VisualStudio11
+        VisualStudio11,
+        VisualStudio12
     }
 
     public enum VSEnvironment

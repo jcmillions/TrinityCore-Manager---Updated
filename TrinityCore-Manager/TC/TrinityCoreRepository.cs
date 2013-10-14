@@ -74,7 +74,7 @@ namespace TrinityCore_Manager.TC
 
         }
 
-        private static string GetGitLocation()
+        public static string GetGitLocation()
         {
 
             string git;
