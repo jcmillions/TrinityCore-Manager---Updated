@@ -6,22 +6,24 @@
         xmlns:helpers="clr-namespace:TrinityCore_Manager.Helpers"
         xmlns:viewModels="clr-namespace:TrinityCore_Manager.ViewModels"
         
-        Title="Add New Account" Height="400" Width="500" ResizeMode="NoResize" Icon="/TrinityCore-Manager;component/Resources/add.ico">
+        Title="Add New Account" Height="455" Width="500" ResizeMode="NoResize" Icon="/TrinityCore-Manager;component/Resources/add.ico">
 
     <i:Interaction.Behaviors>
         <catel:WindowBehavior x:Name="mvvmBehavior" ViewModelType="{x:Type viewModels:AddAccountViewModel}"/>
     </i:Interaction.Behaviors>
 
-    <Grid>
-        <Button Content="Create Account" Margin="189,327,189,0" VerticalAlignment="Top" Height="33" Command="{Binding CreateAccountCommand}"/>
+    <Grid Height="427" VerticalAlignment="Top">
+        <Button Content="Create Account" Margin="189,374,189,20" Command="{Binding CreateAccountCommand}"/>
         <TextBox Height="24" Margin="121,43,121,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="{Binding AccountName}"/>
-        <Label Content="Account Name" Margin="198,12,199,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label Content="Account Name" Margin="189,12,189,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <PasswordBox Height="24" Margin="121,109,121,0" VerticalAlignment="Top" helpers:PasswordHelper.Attach="True" helpers:PasswordHelper.Password="{Binding AccountPassword}"/>
-        <Label Content="Account Password" Margin="189,78,189,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label Content="Account Password" Margin="179,78,179,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <TextBox Height="24" Margin="121,174,121,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="{Binding AccountEmail}"/>
-        <Label Content="Account e-mail" Margin="198,143,199,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <Label Content="Rank" Margin="226,215,226,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <ComboBox Margin="165,246,165,0" VerticalAlignment="Top" ItemsSource="{Binding Ranks}"/>
+        <Label Content="Account e-mail" Margin="189,143,189,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label Content="Rank" Margin="224,284,207,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <ComboBox Margin="165,310,165,0" VerticalAlignment="Top" ItemsSource="{Binding Ranks}"/>
+        <Label Content="Expansion" Margin="211,213,189,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <ComboBox Margin="165,244,165,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

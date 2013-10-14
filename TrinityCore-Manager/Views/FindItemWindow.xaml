@@ -4,7 +4,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:viewModels="clr-namespace:TrinityCore_Manager.ViewModels"
         xmlns:catel="http://catel.codeplex.com"
-        Title="FindItemWindow" Height="516" Width="482">
+        Title="Find Item" Height="516" Width="482" ResizeMode="NoResize" Icon="/TrinityCore-Manager;component/Resources/search.ico">
 
     <i:Interaction.Behaviors>
         <catel:WindowBehavior x:Name="mvvmBehavior" ViewModelType="{x:Type viewModels:FindItemViewModel}"/>

@@ -4,7 +4,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:viewModels="clr-namespace:TrinityCore_Manager.ViewModels"
         xmlns:catel="http://catel.codeplex.com"
-        Title="AccountManagementWindow" Height="482" Width="404">
+        Title="AccountManagementWindow" Height="482" Width="404" ResizeMode="NoResize" Icon="/TrinityCore-Manager;component/Resources/edit.ico">
 
     <i:Interaction.Behaviors>
         <catel:WindowBehavior x:Name="mvvmBehavior" ViewModelType="{x:Type viewModels:AccountManagementViewModel}"/>
@@ -18,7 +18,7 @@
                   ItemsSource="{Binding TheAccounts, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedAccount}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Username" Width="200" DisplayMemberBinding="{Binding Username}"/>
+                    <GridViewColumn Header="Username" Width="365" DisplayMemberBinding="{Binding Username}"/>
                 </GridView>
             </ListView.View>
         </ListView>

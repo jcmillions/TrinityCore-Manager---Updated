@@ -4,7 +4,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:viewModels="clr-namespace:TrinityCore_Manager.ViewModels"
         xmlns:catel="http://catel.codeplex.com"
-        Title="IPManagementWindow" Height="432" Width="394">
+        Title="IP Management" Height="432" Width="394" ResizeMode="NoResize" Icon="/TrinityCore-Manager;component/Resources/edit.ico">
 
     <i:Interaction.Behaviors>
         <catel:WindowBehavior x:Name="mvvmBehavior" ViewModelType="{x:Type viewModels:IPManagementViewModel}"/>
@@ -18,10 +18,10 @@
                   SelectedItem="{Binding SelectedIP}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="IP Address" Width="200" DisplayMemberBinding="{Binding IPAddress}"/>
+                    <GridViewColumn Header="IP Address" Width="360" DisplayMemberBinding="{Binding IPAddress}"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Unban Selected IP Address" HorizontalAlignment="Left" Margin="105,361,0,0" VerticalAlignment="Top" Width="160" Height="30" Command="{Binding UnbanIPCommand}"/>
+        <Button Content="Unban Selected IP Address" HorizontalAlignment="Left" Margin="121,361,0,0" VerticalAlignment="Top" Width="160" Height="30" Command="{Binding UnbanIPCommand}"/>
     </Grid>
 </Window>
