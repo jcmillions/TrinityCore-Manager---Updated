@@ -222,12 +222,16 @@
     <Compile Include="Misc\VisualStudio.cs" />
     <Compile Include="Misc\WoWItem.cs" />
     <Compile Include="Models\AddAccountModel.cs" />
+    <Compile Include="Models\AddEditItemModel.cs" />
     <Compile Include="Models\BackupDatabaseModel.cs" />
     <Compile Include="Models\CharacterSelectingModel.cs" />
     <Compile Include="Models\FindItemModel.cs" />
     <Compile Include="Models\IPManagementModel.cs" />
     <Compile Include="Models\IPModel.cs" />
     <Compile Include="Models\ItemModel.cs" />
+    <Compile Include="Models\Item\ItemBind.cs" />
+    <Compile Include="Models\Item\ItemType.cs" />
+    <Compile Include="Models\Item\SkillProfessionModel.cs" />
     <Compile Include="Models\PlayerInformationModel.cs" />
     <Compile Include="Models\RestoreDatabaseModel.cs" />
     <Compile Include="Models\SettingsModel.cs" />
@@ -254,6 +258,7 @@
     <Compile Include="TC\TrinityCoreRepository.cs" />
     <Compile Include="ViewModels\AccountManagementViewModel.cs" />
     <Compile Include="ViewModels\AddAccountViewModel.cs" />
+    <Compile Include="ViewModels\AddEditItemViewModel.cs" />
     <Compile Include="ViewModels\BackupDatabaseViewModel.cs" />
     <Compile Include="ViewModels\CharacterSelectingViewModel.cs" />
     <Compile Include="ViewModels\FindItemViewModel.cs" />
@@ -269,6 +274,8 @@
     </Compile>
     <Compile Include="Views\AddAccount.xaml.cs">
       <DependentUpon>AddAccount.xaml</DependentUpon>
+    <Compile Include="Views\AddEditItemWindow.xaml.cs">
+      <DependentUpon>AddEditItemWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\BackupDatabaseWindow.xaml.cs">
       <DependentUpon>BackupDatabaseWindow.xaml</DependentUpon>
@@ -323,6 +330,9 @@
     <Page Include="Views\AddAccount.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    <Page Include="Views\AddEditItemWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\BackupDatabaseWindow.xaml">
       <SubType>Designer</SubType>
