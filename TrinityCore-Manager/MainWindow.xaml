@@ -96,7 +96,7 @@
 
             <fluent:RibbonTabItem ReduceOrder="Default,Default,Default,Large,Large,Large,Other,Other,Other" Header="Account Management" IsSelected="True">
                 <fluent:RibbonGroupBox x:Name="SMGroup4" Header="Account Editing" Width="125">
-                    <fluent:Button Header="Add Account" Width="53" LargeIcon="{StaticResource AddImage}" Margin="0,0,25,0"/>
+                    <fluent:Button Header="Add Account" Width="53" LargeIcon="{StaticResource AddImage}" Margin="0,0,25,0" Command="{Binding AddAccountCommand}"/>
                     <fluent:Button Header="Edit Account" Width="53" LargeIcon="{StaticResource EditImage}" Margin="0,0,22,0" BorderThickness="0"/>
                 </fluent:RibbonGroupBox>
 
