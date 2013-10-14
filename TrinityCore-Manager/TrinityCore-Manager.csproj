@@ -274,6 +274,7 @@
     </Compile>
     <Compile Include="Views\AddAccount.xaml.cs">
       <DependentUpon>AddAccount.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AddEditItemWindow.xaml.cs">
       <DependentUpon>AddEditItemWindow.xaml</DependentUpon>
     </Compile>
@@ -330,9 +331,10 @@
     <Page Include="Views\AddAccount.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\AddEditItemWindow.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\BackupDatabaseWindow.xaml">
       <SubType>Designer</SubType>
@@ -343,8 +345,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\EditAccount.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\FindItemWindow.xaml">
       <SubType>Designer</SubType>
