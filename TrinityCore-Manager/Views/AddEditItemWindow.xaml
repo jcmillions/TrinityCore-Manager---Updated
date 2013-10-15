@@ -13,8 +13,7 @@
 
     <Grid>
 
-        <xctk:Wizard HorizontalAlignment="Left" x:Name="setupWizard" VerticalAlignment="Top" Height="405" Width="681" FinishButtonClosesWindow="False" HelpButtonVisibility="Hidden">
-        </xctk:Wizard>
+        <xctk:Wizard HorizontalAlignment="Left" x:Name="setupWizard" VerticalAlignment="Top" Height="405" Width="681" FinishButtonClosesWindow="False" HelpButtonVisibility="Hidden" />
 
     </Grid>
 </Window>

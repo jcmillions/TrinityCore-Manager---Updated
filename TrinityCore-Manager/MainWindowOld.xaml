@@ -141,11 +141,7 @@
                 </ribbon:RibbonTab>
 
                 <ribbon:RibbonTab x:Name="CharManagementTab" 
-                              Header="Character Management">
-
-
-
-                </ribbon:RibbonTab>
+                              Header="Character Management" />
 
                 <ribbon:RibbonTab x:Name="DBManagementTab" 
                               Header="Database Management">
@@ -277,8 +273,7 @@
                 <StatusBarItem Grid.Column="1">
                     <Image Source="{StaticResource OnImage}" Width="16" Height="16" Visibility="{Binding AuthOnline, Converter={StaticResource BoolVisibilityConverter}}"/>
                 </StatusBarItem>
-                <StatusBarItem Grid.Column="2">
-                </StatusBarItem>
+                <StatusBarItem Grid.Column="2" />
                 <StatusBarItem Grid.Column="3">
                     <TextBlock>World Server</TextBlock>
                 </StatusBarItem>
