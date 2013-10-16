@@ -51,14 +51,49 @@ namespace TrinityCore_Manager.ViewModels
         private async void CreateAccount()
         {
 
+            if (string.IsNullOrEmpty(AccountName) || string.IsNullOrEmpty(AccountPassword) || string.IsNullOrEmpty(Rank) || string.IsNullOrEmpty(Expansion))
+            {
+
+                _messageService.ShowError("All fields are required!");
+
+                return;
+
+            }
+
+
+            if (AccountName.Length > 32)
+            {
+
+                _messageService.ShowError("Account name length exceeded!");
+
+                return;
+
+            }
+
+            if (AccountEmail == null)
+                AccountEmail = String.Empty;
+
             _pleaseWaitService.Show("Creating Account...");
 
             GMLevel level = GMLevel.Player;
 
             if (Rank == "GM")
                 level = GMLevel.GM;
+            else if (Rank == "Mod")
+                level = GMLevel.Moderator;
+            else if (Rank == "Head GM")
+                level = GMLevel.HeadGM;
+            else if (Rank == "Admin")
+                level = GMLevel.Admin;
 
-            await TCManager.Instance.AuthDatabase.CreateAccount(AccountName, AccountPassword, (int)level, -1);
+            Expansion exp = Database.Enums.Expansion.Vanilla;
+
+            if (Expansion == "TBC")
+                exp = Database.Enums.Expansion.TBC;
+            else if (Expansion == "WOTLK")
+                exp = Database.Enums.Expansion.WOTLK;
+
+            await TCManager.Instance.AuthDatabase.CreateAccount(AccountName, AccountPassword, (int)level, (int)exp, AccountEmail);
 
             _pleaseWaitService.Hide();
 
@@ -157,7 +192,45 @@ namespace TrinityCore_Manager.ViewModels
         public static readonly PropertyData RanksProperty = RegisterProperty("Ranks", typeof(ObservableCollection<string>), new ObservableCollection<string>
         {
             "Player",
-            "GM"
+            "Mod",
+            "GM",
+            "Head GM",
+            "Admin"
+        });
+
+        [ViewModelToModel("AddAccount")]
+        public string Expansion
+        {
+            get
+            {
+                return GetValue<string>(ExpansionProperty);
+            }
+            set
+            {
+                SetValue(ExpansionProperty, value);
+            }
+        }
+
+        public static readonly PropertyData ExpansionProperty = RegisterProperty("Expansion", typeof(string));
+
+        [ViewModelToModel("AddAccount")]
+        public ObservableCollection<string> Expansions
+        {
+            get
+            {
+                return GetValue<ObservableCollection<string>>(ExpansionsProperty);
+            }
+            set
+            {
+                SetValue(ExpansionsProperty, value);
+            }
+        }
+
+        public static readonly PropertyData ExpansionsProperty = RegisterProperty("Expansions", typeof(ObservableCollection<string>), new ObservableCollection<string>
+        {
+            "Vanilla",
+            "TBC",
+            "WOTLK",
         });
 
     }

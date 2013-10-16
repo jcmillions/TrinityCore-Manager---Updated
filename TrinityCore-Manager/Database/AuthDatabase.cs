@@ -36,7 +36,7 @@ namespace TrinityCore_Manager.Database
         {
         }
 
-        public async Task<bool> CreateAccount(string username, string password, int gmlevel, int expansion)
+        public async Task<bool> CreateAccount(string username, string password, int gmlevel, int expansion, string email = "")
         {
 
             DataTable dt = await ExecuteQuery("SELECT id FROM `account` WHERE username = @username", new MySqlParameter("@username", username));
@@ -44,7 +44,9 @@ namespace TrinityCore_Manager.Database
             if (dt.Rows.Count > 0)
                 return false;
 
-            await ExecuteNonQuery("INSERT INTO `account` (`username`, `sha_pass_hash`, `expansion`) VALUES (@username, @hash, @expansion)", new MySqlParameter("@username", username), new MySqlParameter("@hash", String.Format("{0}:{1}", username.ToUpper(), password.ToUpper()).ToSHA1()), new MySqlParameter("@expansion", expansion));
+            await ExecuteNonQuery("INSERT INTO `account` (`username`, `sha_pass_hash`, `expansion`, `email`) VALUES (@username, @hash, @expansion, @email)", 
+                new MySqlParameter("@username", username), new MySqlParameter("@hash", String.Format("{0}:{1}", username.ToUpper(), password.ToUpper()).ToSHA1()), 
+                new MySqlParameter("@expansion", expansion), new MySqlParameter("@email", email));
 
 
             dt = await ExecuteQuery("SELECT id FROM `account` WHERE username = @username", new MySqlParameter("@username", username));

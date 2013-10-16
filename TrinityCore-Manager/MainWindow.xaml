@@ -53,6 +53,7 @@
         <BitmapImage x:Key="MessageImage" UriSource="Resources/message.ico"/>
         <BitmapImage x:Key="WizardImage" UriSource="Resources/wizard.ico"/>
         <BitmapImage x:Key="ManageImage" UriSource="Resources/manage.ico"/>
+        <BitmapImage x:Key="ColorThemeImage" UriSource="Resources/color_theme_16.ico"/>
     </fluent:RibbonWindow.Resources>
 
     <i:Interaction.Behaviors>
@@ -95,7 +96,7 @@
             </fluent:RibbonTabItem>
 
             <fluent:RibbonTabItem ReduceOrder="Default,Default,Default,Large,Large,Large,Other,Other,Other" Header="Account Management" IsSelected="True">
-                <fluent:RibbonGroupBox x:Name="SMGroup4" Header="Account Editing" Width="125">
+                <fluent:RibbonGroupBox x:Name="SMGroup4" Header="Account Editing" Width="145">
                     <fluent:Button Header="Add Account" Width="53" LargeIcon="{StaticResource AddImage}" Margin="0,0,25,0" Command="{Binding AddAccountCommand}"/>
                     <fluent:Button Header="Edit Account" Width="53" LargeIcon="{StaticResource EditImage}" Margin="0,0,22,0" BorderThickness="0"/>
                 </fluent:RibbonGroupBox>
@@ -286,5 +287,34 @@
                 <TextBlock Text="{Binding BackupText}"/>
             </fluent:StatusBarItem>
         </fluent:StatusBar>
+        <xctk:DropDownButton Content="Options" HorizontalAlignment="Left" Margin="25,0,0,0" VerticalAlignment="Top" Width="110">
+            <xctk:DropDownButton.DropDownContent>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Button BorderThickness="0" Width="110" BorderBrush="Transparent" Background="Transparent" Grid.Column="0" Grid.Row="0">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{StaticResource SettingsImage}" Width="16" Height="16"/>
+                            <TextBlock>Settings(NYI)</TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Button BorderThickness="0"  Width="110" BorderBrush="Transparent" Background="Transparent" Grid.Column="0" Grid.Row="1" Command="{Binding EditSettingsCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{StaticResource ColorThemeImage}"/>
+                            <TextBlock>Change Theme</TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Button BorderThickness="0"  Width="110" BorderBrush="Transparent" Background="Transparent" Grid.Column="0" Grid.Row="2" Command="{Binding OpenSetupWizardCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{StaticResource WizardImage}" Width="16" Height="16"/>
+                            <TextBlock>Setup Wizard</TextBlock>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </xctk:DropDownButton.DropDownContent>
+        </xctk:DropDownButton>
     </Grid>
 </fluent:RibbonWindow>

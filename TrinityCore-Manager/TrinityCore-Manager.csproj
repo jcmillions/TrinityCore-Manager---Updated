@@ -550,6 +550,7 @@
     <Content Include="mysql\mysqldump.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\color_theme_16.ico" />
     <Resource Include="Resources\manage.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

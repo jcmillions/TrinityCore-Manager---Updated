@@ -16,14 +16,13 @@
         <Button Content="Create Account" Margin="189,374,189,20" Command="{Binding CreateAccountCommand}"/>
         <TextBox Height="24" Margin="121,43,121,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="{Binding AccountName}"/>
         <Label Content="Account Name" Margin="189,12,189,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <PasswordBox Height="24" Margin="121,109,121,0" VerticalAlignment="Top" helpers:PasswordHelper.Attach="True" helpers:PasswordHelper.Password="{Binding AccountPassword}"/>
+        <PasswordBox Height="24" Margin="121,109,121,0" VerticalAlignment="Top" helpers:PasswordHelper.Attach="True" helpers:PasswordHelper.Password="{Binding AccountPassword, Mode=TwoWay}"/>
         <Label Content="Account Password" Margin="179,78,179,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <TextBox Height="24" Margin="121,174,121,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="{Binding AccountEmail}"/>
         <Label Content="Account e-mail" Margin="189,143,189,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <Label Content="Rank" Margin="224,284,207,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <ComboBox Margin="165,310,165,0" VerticalAlignment="Top" ItemsSource="{Binding Ranks}"/>
+        <ComboBox Margin="165,310,165,0" VerticalAlignment="Top" ItemsSource="{Binding Ranks}" SelectedItem="{Binding Rank, UpdateSourceTrigger=PropertyChanged}"/>
         <Label Content="Expansion" Margin="211,213,189,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <ComboBox Margin="165,244,165,0" VerticalAlignment="Top"/>
-
+        <ComboBox Margin="165,244,165,0" VerticalAlignment="Top" ItemsSource="{Binding Expansions}" SelectedItem="{Binding Expansion, UpdateSourceTrigger=PropertyChanged}"/>
     </Grid>
 </Window>

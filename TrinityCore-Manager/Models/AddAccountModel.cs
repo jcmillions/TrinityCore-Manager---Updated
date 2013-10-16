@@ -98,7 +98,43 @@ namespace TrinityCore_Manager.Models
         public static readonly PropertyData RanksProperty = RegisterProperty("Ranks", typeof(ObservableCollection<string>), new ObservableCollection<string>
         {
             "Player",
-            "GM"
+            "Mod",
+            "GM",
+            "Head GM",
+            "Admin"
+        });
+
+        public string Expansion
+        {
+            get
+            {
+                return GetValue<string>(ExpansionProperty);
+            }
+            set
+            {
+                SetValue(ExpansionProperty, value);
+            }
+        }
+
+        public static readonly PropertyData ExpansionProperty = RegisterProperty("Expansion", typeof(string));
+
+        public ObservableCollection<string> Expansions
+        {
+            get
+            {
+                return GetValue<ObservableCollection<string>>(ExpansionsProperty);
+            }
+            set
+            {
+                SetValue(ExpansionsProperty, value);
+            }
+        }
+
+        public static readonly PropertyData ExpansionsProperty = RegisterProperty("Expansions", typeof(ObservableCollection<string>), new ObservableCollection<string>
+        {
+            "Vanilla",
+            "TBC",
+            "WOTLK",
         });
 
     }

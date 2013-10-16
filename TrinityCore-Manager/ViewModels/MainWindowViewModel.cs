@@ -193,7 +193,7 @@ namespace TrinityCore_Manager.ViewModels
 
             AccountsModel acctsModel = new AccountsModel(accountList);
 
-            _uiVisualizerService.Show(new AccountManagementViewModel(acctsModel, _uiVisualizerService, _pleaseWaitService, _messageService));
+            _uiVisualizerService.ShowDialog(new AccountManagementViewModel(acctsModel, _uiVisualizerService, _pleaseWaitService, _messageService));
 
         }
 
@@ -209,7 +209,7 @@ namespace TrinityCore_Manager.ViewModels
 
             IPManagementModel model = new IPManagementModel(ips);
 
-            _uiVisualizerService.Show(new IPManagementViewModel(model, _uiVisualizerService, _pleaseWaitService, _messageService));
+            _uiVisualizerService.ShowDialog(new IPManagementViewModel(model, _uiVisualizerService, _pleaseWaitService, _messageService));
 
         }
 
@@ -304,7 +304,7 @@ namespace TrinityCore_Manager.ViewModels
                         TotalKills = c.TotalKills.ToString(),
                     };
 
-                    _uiVisualizerService.Show(new PlayerInformationViewModel(model));
+                    _uiVisualizerService.ShowDialog(new PlayerInformationViewModel(model));
 
                 }
 

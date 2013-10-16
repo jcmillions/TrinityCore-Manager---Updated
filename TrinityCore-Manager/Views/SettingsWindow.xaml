@@ -4,17 +4,17 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:viewModels="clr-namespace:TrinityCore_Manager.ViewModels"
         xmlns:catel="http://catel.codeplex.com"
-        Title="TCM Settings" Height="182" Width="358" ResizeMode="CanMinimize" Icon="/TrinityCore-Manager;component/Resources/settings.ico">
+        Title="TCM Settings" Height="182" Width="358" ResizeMode="NoResize" Icon="/TrinityCore-Manager;component/Resources/settings.ico">
 
     <i:Interaction.Behaviors>
         <catel:WindowBehavior x:Name="mvvmBehavior" ViewModelType="{x:Type viewModels:SettingsViewModel}"/>
     </i:Interaction.Behaviors>
 
     <Grid>
-        <ComboBox x:Name="comboBoxTheme" HorizontalAlignment="Left" Margin="63,13,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Themes}" SelectedValue="{Binding SelectedTheme}" SelectedIndex="0"/>
-        <Label Content="Theme" HorizontalAlignment="Left" Margin="12,12,0,0" VerticalAlignment="Top"/>
-        <Button Content="Ok" HorizontalAlignment="Left" Margin="257,114,0,0" VerticalAlignment="Top" Width="75" Command="{Binding OkCommand}"/>
-        <Button Content="Cancel" HorizontalAlignment="Left" Margin="12,114,0,0" VerticalAlignment="Top" Width="75" Command="{Binding CancelCommand}"/>
+        <ComboBox x:Name="comboBoxTheme" Margin="117,55,0,0" ItemsSource="{Binding Themes}" SelectedValue="{Binding SelectedTheme}" SelectedIndex="0" HorizontalAlignment="Left" Width="120" Height="22" VerticalAlignment="Top"/>
+        <Label Content="Theme" HorizontalAlignment="Left" Margin="66,51,0,0" VerticalAlignment="Top"/>
+        <Button Content="Ok" HorizontalAlignment="Left" Margin="267,114,0,0" VerticalAlignment="Top" Width="75" Command="{Binding OkCommand}"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="10,114,0,0" VerticalAlignment="Top" Width="75" Command="{Binding CancelCommand}"/>
 
     </Grid>
 </Window>
