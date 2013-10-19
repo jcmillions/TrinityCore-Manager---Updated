@@ -279,9 +279,27 @@ namespace TrinityCore_Manager.ViewModels
                     switch (gmLvl)
                     {
 
+                        case GMLevel.Moderator:
+
+                            gmLevelStr = "Moderator";
+
+                            break;
+
                         case GMLevel.GM:
 
                             gmLevelStr = "GM";
+
+                            break;
+
+                        case GMLevel.HeadGM:
+
+                            gmLevelStr = "Head GM";
+
+                            break;
+
+                        case GMLevel.Admin:
+
+                            gmLevelStr = "Admin";
 
                             break;
 

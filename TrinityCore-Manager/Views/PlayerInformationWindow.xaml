@@ -11,17 +11,11 @@
     </i:Interaction.Behaviors>
 
     <Grid>
-        <Grid.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FF858484" Offset="0"/>
-                <GradientStop Color="#FF4B4A4A" Offset="1"/>
-            </LinearGradientBrush>
-        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="133*"/>
             <RowDefinition Height="65*"/>
         </Grid.RowDefinitions>
-        <Label Content="{Binding CharacterName}" HorizontalAlignment="Left" Margin="136,10,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Label Content="{Binding CharacterName}" HorizontalAlignment="Left" Margin="136,10,0,0" VerticalAlignment="Top" FontSize="17" FontWeight="Bold"/>
         <Label Content="Last Login:" Margin="40,264,0,0" VerticalAlignment="Top" Grid.RowSpan="2" HorizontalAlignment="Left" Width="66"/>
         <Label Content="{Binding LastLogin}" HorizontalAlignment="Left" Margin="136,265,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
         <Label Content="Last IP:" HorizontalAlignment="Left" Margin="40,29,0,0" VerticalAlignment="Top" Grid.Row="1"/>
@@ -41,7 +35,7 @@
         <Label Content="Account Id:" HorizontalAlignment="Left" Margin="40,76,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding AccountId}" HorizontalAlignment="Left" Margin="136,77,0,0" VerticalAlignment="Top"/>
         <Label Content="Rank:" HorizontalAlignment="Left" Margin="40,60,0,0" VerticalAlignment="Top" Grid.Row="1"/>
-        <Label Content="{Binding GMLevel}" HorizontalAlignment="Left" Margin="136,61,0,0" VerticalAlignment="Top" Grid.Row="1" Foreground="Chartreuse"/>
+        <Label Content="{Binding GMLevel}" HorizontalAlignment="Left" Margin="136,61,0,0" VerticalAlignment="Top" Grid.Row="1" FontWeight="Bold" />
         <Label Content="Play Time:" HorizontalAlignment="Left" Margin="40,91,0,0" VerticalAlignment="Top" Grid.Row="1"/>
         <Label Content="{Binding PlayedTime}" HorizontalAlignment="Left" Margin="136,91,0,0" VerticalAlignment="Top" Grid.Row="1"/>
 

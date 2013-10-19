@@ -5,7 +5,7 @@
         xmlns:viewModels="clr-namespace:TrinityCore_Manager.ViewModels"
         xmlns:catel="http://catel.codeplex.com"
         xmlns:converters="clr-namespace:TrinityCore_Manager.Converters"
-        Title="RestoreDatabaseWindow" Height="256" Width="427">
+        Title="Restore Database" Height="256" Width="427" Icon="/TrinityCore-Manager;component/Resources/restoredb.ico">
 
     <i:Interaction.Behaviors>
         <catel:WindowBehavior x:Name="mvvmBehavior" ViewModelType="{x:Type viewModels:RestoreDatabaseViewModel}"/>

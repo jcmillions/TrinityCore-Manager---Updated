@@ -5,7 +5,7 @@
         xmlns:viewModels="clr-namespace:TrinityCore_Manager.ViewModels"
         xmlns:catel="http://catel.codeplex.com"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        Title="AddEditItemWindow" Height="405" Width="681">
+        Title="Add Edit Item" Height="405" Width="681" Icon="/TrinityCore-Manager;component/Resources/edit.ico">
 
     <i:Interaction.Behaviors>
         <catel:WindowBehavior x:Name="mvvmBehavior" ViewModelType="{x:Type viewModels:AddEditItemViewModel}"/>

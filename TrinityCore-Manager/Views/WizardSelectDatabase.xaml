@@ -4,7 +4,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:viewModels="clr-namespace:TrinityCore_Manager.ViewModels"
         xmlns:catel="http://catel.codeplex.com"
-        Title="Select A Database" Height="310" Width="323" ResizeMode="CanMinimize">
+        Title="Select A Database" Height="310" Width="323" ResizeMode="CanMinimize" Icon="/TrinityCore-Manager;component/Resources/search.ico">
 
     <i:Interaction.Behaviors>
         <catel:WindowBehavior x:Name="mvvmBehavior" ViewModelType="{x:Type viewModels:WizardSelectDatabaseViewModel}"/>

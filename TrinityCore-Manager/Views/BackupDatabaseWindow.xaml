@@ -6,7 +6,7 @@
         xmlns:viewModels="clr-namespace:TrinityCore_Manager.ViewModels"
         xmlns:catel="http://catel.codeplex.com"
         x:Class="TrinityCore_Manager.Views.BackupDatabaseWindow"
-        Title="BackupDatabaseWindow" Height="300" Width="496">
+        Title="Backup Database" Height="300" Width="496" Icon="/TrinityCore-Manager;component/Resources/backupdb.ico">
 
     <i:Interaction.Behaviors>
         <catel:WindowBehavior x:Name="mvvmBehavior" ViewModelType="{x:Type viewModels:BackupDatabaseViewModel}"/>

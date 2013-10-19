@@ -4,7 +4,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:viewModels="clr-namespace:TrinityCore_Manager.ViewModels"
         xmlns:catel="http://catel.codeplex.com"
-        Title="TCM Settings" Height="182" Width="358" ResizeMode="NoResize" Icon="/TrinityCore-Manager;component/Resources/settings.ico">
+        Title="Theme Settings" Height="182" Width="358" ResizeMode="NoResize" Icon="/TrinityCore-Manager;component/Resources/settings.ico">
 
     <i:Interaction.Behaviors>
         <catel:WindowBehavior x:Name="mvvmBehavior" ViewModelType="{x:Type viewModels:SettingsViewModel}"/>
