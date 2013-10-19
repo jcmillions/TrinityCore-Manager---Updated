@@ -210,6 +210,10 @@
     <Compile Include="Extensions\AttributeExtensions.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\TimeSpanExtensions.cs" />
+    <Compile Include="Helpers\AutoCompleteEntry.cs" />
+    <Compile Include="Helpers\AutoCompleteTextBox.xaml.cs">
+      <DependentUpon>AutoCompleteTextBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\MvvmTextEditor.cs" />
     <Compile Include="Helpers\PasswordHelper.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -225,6 +229,7 @@
     <Compile Include="Models\AddEditItemModel.cs" />
     <Compile Include="Models\BackupDatabaseModel.cs" />
     <Compile Include="Models\CharacterSelectingModel.cs" />
+    <Compile Include="Models\EditAccountModel.cs" />
     <Compile Include="Models\FindItemModel.cs" />
     <Compile Include="Models\IPManagementModel.cs" />
     <Compile Include="Models\IPModel.cs" />
@@ -261,6 +266,7 @@
     <Compile Include="ViewModels\AddEditItemViewModel.cs" />
     <Compile Include="ViewModels\BackupDatabaseViewModel.cs" />
     <Compile Include="ViewModels\CharacterSelectingViewModel.cs" />
+    <Compile Include="ViewModels\EditAccountViewModel.cs" />
     <Compile Include="ViewModels\FindItemViewModel.cs" />
     <Compile Include="ViewModels\IPManagementViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
@@ -284,8 +290,8 @@
     <Compile Include="Views\CharacterSelectingWindow.xaml.cs">
       <DependentUpon>CharacterSelectingWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\EditAccount.xaml.cs">
-      <DependentUpon>EditAccount.xaml</DependentUpon>
+    <Compile Include="Views\EditAccountWindow.xaml.cs">
+      <DependentUpon>EditAccountWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\FindItemWindow.xaml.cs">
       <DependentUpon>FindItemWindow.xaml</DependentUpon>
@@ -308,6 +314,10 @@
     <Compile Include="Views\WizardSelectDatabase.xaml.cs">
       <DependentUpon>WizardSelectDatabase.xaml</DependentUpon>
     </Compile>
+    <Page Include="Helpers\AutoCompleteTextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindowOld.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -344,9 +354,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\EditAccount.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Views\EditAccountWindow.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\FindItemWindow.xaml">
       <SubType>Designer</SubType>

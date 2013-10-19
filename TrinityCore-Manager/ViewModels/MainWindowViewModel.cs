@@ -112,6 +112,8 @@ namespace TrinityCore_Manager.ViewModels
 
         public Command AddAccountCommand { get; private set; }
 
+        public Command EditAccountCommand { get; private set; }
+
         public MainWindowViewModel(IUIVisualizerService uiVisualizerService, IPleaseWaitService pleaseWaitService, IMessageService messageService)
         {
 
@@ -159,6 +161,7 @@ namespace TrinityCore_Manager.ViewModels
             IPManagementCommand = new Command(IPManagement);
             AccountManagementCommand = new Command(AccountManagement);
             AddAccountCommand = new Command(AddAccount);
+            EditAccountCommand = new Command(ShowEditAccount);
 
             Characters = new ObservableCollection<string>();
 
@@ -168,6 +171,15 @@ namespace TrinityCore_Manager.ViewModels
             SetColorTheme(Settings.Default.ColorTheme);
 
             Application.Current.Exit += Current_Exit;
+        }
+
+        private void ShowEditAccount()
+        {
+
+            EditAccountModel model = new EditAccountModel();
+
+            _uiVisualizerService.ShowDialog(new EditAccountViewModel(model, _pleaseWaitService, _messageService));
+
         }
 
         private void AddAccount()

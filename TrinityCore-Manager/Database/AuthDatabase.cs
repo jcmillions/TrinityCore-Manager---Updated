@@ -60,6 +60,28 @@ namespace TrinityCore_Manager.Database
 
         }
 
+        /// <summary>
+        /// Modify an account
+        /// </summary>
+        /// <param name="id">The id of the account</param>
+        /// <param name="username">The new username for the account</param>
+        /// <param name="password">The new password for the account</param>
+        /// <param name="email">The new email for the account</param>
+        /// <param name="lvl">The new GM level for the account</param>
+        /// <param name="exp">The new expansion for the account</param>
+        /// <returns>An awaitable Task object</returns>
+        public async Task EditAccount(int id, string username, string password, string email, GMLevel lvl, Expansion exp)
+        {
+
+            await ExecuteNonQuery("UPDATE `account` SET username=@username, sha_pass_hash=@hash, expansion=@expansion, email=@email WHERE id=@id",
+                new MySqlParameter("@username", username), new MySqlParameter("@hash", String.Format("{0}:{1}", username.ToUpper(), password.ToUpper()).ToSHA1()),
+                new MySqlParameter("@expansion", (int)exp), new MySqlParameter("@email", email), new MySqlParameter("@id", id));
+
+            await ExecuteNonQuery("UPDATE `account_access` SET gmlevel=@gmlevel WHERE id = @id", new MySqlParameter("@gmlevel", (int)lvl), new MySqlParameter("@id", id));
+
+        }
+        
+
         public async Task<GMLevel> GetAccountAccess(int accountId)
         {
 
