@@ -1,0 +1,15 @@
+﻿<Window x:Class="TrinityCore_Manager.Views.DeleteGuildWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Delete Guild" Height="499" Width="473" Icon="/TrinityCore-Manager;component/Resources/delete.ico" ResizeMode="NoResize">
+    <Grid>
+        <Label Content="Guild Name:" HorizontalAlignment="Left" Margin="110,21,0,0" VerticalAlignment="Top" FontSize="13" FontWeight="Bold"/>
+        <Label Content="Guild Leader:" HorizontalAlignment="Left" Margin="105,53,0,0" VerticalAlignment="Top" FontSize="13" FontWeight="Bold"/>
+        <Label Content="Guild Members:" HorizontalAlignment="Left" Margin="30,85,0,0" VerticalAlignment="Top" FontSize="13" FontWeight="Bold"/>
+        <ListBox Height="290" Margin="30,117,30,0" VerticalAlignment="Top" IsEnabled="False"/>
+        <Button Content="Delete" HorizontalAlignment="Left" Margin="183,431,0,0" VerticalAlignment="Top" Width="100" Height="30"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="201,24,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="201,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" IsEnabled="False"/>
+
+    </Grid>
+</Window>

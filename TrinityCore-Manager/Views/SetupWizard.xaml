@@ -18,7 +18,7 @@
         <converters:BooleanVisibilityConverter x:Key="BoolVisibilityConverter"/>
         <converters:InverseBooleanConverter x:Key="InverseBoolConverter"/>
         <converters:InverseBooleanVisibilityConverter x:Key="InverseBoolVisibility"/>
-        <BitmapImage x:Key="TCMImage" UriSource="../Resources/TrinityCoreManager.png"/>
+        <BitmapImage x:Key="TCMImage" UriSource="/TrinityCore-Manager;component/Resources/TrinityCoreManager.png"/>
         <Style x:Key="WoWFont">
             <Setter Property="TextElement.FontFamily" Value="../Resources/#LifeCraft"/>
             <Setter Property="TextElement.Foreground" Value="#FF002061"/>

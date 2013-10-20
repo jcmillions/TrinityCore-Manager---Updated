@@ -278,8 +278,8 @@
     <Compile Include="Views\AccountManagementWindow.xaml.cs">
       <DependentUpon>AccountManagementWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AddAccount.xaml.cs">
-      <DependentUpon>AddAccount.xaml</DependentUpon>
+    <Compile Include="Views\AddAccountWindow.xaml.cs">
+      <DependentUpon>AddAccountWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AddEditItemWindow.xaml.cs">
       <DependentUpon>AddEditItemWindow.xaml</DependentUpon>
@@ -290,8 +290,26 @@
     <Compile Include="Views\CharacterSelectingWindow.xaml.cs">
       <DependentUpon>CharacterSelectingWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ContactUsWindow.xaml.cs">
+      <DependentUpon>ContactUsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateGuildWindow.xaml.cs">
+      <DependentUpon>CreateGuildWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DatabaseAccountCleanupWindow.xaml.cs">
+      <DependentUpon>DatabaseAccountCleanupWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DeleteGuildWindow.xaml.cs">
+      <DependentUpon>DeleteGuildWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EditAccountWindow.xaml.cs">
       <DependentUpon>EditAccountWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditGuildWindow.xaml.cs">
+      <DependentUpon>EditGuildWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EventActiveListWindow.xaml.cs">
+      <DependentUpon>EventActiveListWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\FindItemWindow.xaml.cs">
       <DependentUpon>FindItemWindow.xaml</DependentUpon>
@@ -304,6 +322,9 @@
     </Compile>
     <Compile Include="Views\RestoreDatabaseWindow.xaml.cs">
       <DependentUpon>RestoreDatabaseWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SendMailWindow.xaml.cs">
+      <DependentUpon>SendMailWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
@@ -338,7 +359,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AddAccount.xaml">
+    <Page Include="Views\AddAccountWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -354,7 +375,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ContactUsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CreateGuildWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DatabaseAccountCleanupWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DeleteGuildWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\EditAccountWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EditGuildWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EventActiveListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -371,6 +416,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\RestoreDatabaseWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SendMailWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -560,6 +609,7 @@
     <Content Include="mysql\mysqldump.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\SplashScreen.png" />
     <Resource Include="Resources\color_theme_16.ico" />
     <Resource Include="Resources\manage.ico" />
   </ItemGroup>

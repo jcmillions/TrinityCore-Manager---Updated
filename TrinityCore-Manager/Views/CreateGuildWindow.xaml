@@ -1,0 +1,17 @@
+﻿<Window x:Class="TrinityCore_Manager.Views.CreateGuildWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Create Guild" Height="373" Width="598" Icon="/TrinityCore-Manager;component/Resources/add.ico" ResizeMode="NoResize">
+    <Grid>
+        <Button Content="Create" Margin="246,305,246,0" VerticalAlignment="Top" Height="30"/>
+        <Label Content="Guild Leader:" HorizontalAlignment="Left" Margin="140,10,0,0" VerticalAlignment="Top" FontSize="13" FontWeight="Bold"/>
+        <Label Content="Guild Name:" HorizontalAlignment="Left" Margin="145,42,0,0" VerticalAlignment="Top" FontSize="13" FontWeight="Bold"/>
+        <Label Content="Guild MOTD (message of the day):" HorizontalAlignment="Left" Margin="30,126,0,0" VerticalAlignment="Top" FontSize="13" FontWeight="Bold"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="237,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="237,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
+        <TextBox HorizontalAlignment="Left" Height="130" Margin="30,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="514"/>
+        <Label Content="Bank Money:" HorizontalAlignment="Left" Margin="141,74,0,0" VerticalAlignment="Top" FontSize="13" FontWeight="Bold"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="237,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
+
+    </Grid>
+</Window>

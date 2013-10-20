@@ -79,19 +79,11 @@
                     <fluent:Button Header="Open Configuration File" Foreground="Teal" LargeIcon="{StaticResource OpenImage}" Command="{Binding OpenConfigurationCommand}" />
                 </fluent:RibbonGroupBox>
 
-                <fluent:RibbonGroupBox x:Name="SMGroup2" Header="Server Commands" Width="316">
-                    <fluent:TextBox x:Name="ExecCommandTextBox" InputWidth="230" BorderThickness="0" Margin="0,0,10,0" Height="83" 
+                <fluent:RibbonGroupBox x:Name="SMGroup2" Header="Server Commands" Width="425">
+                    <fluent:TextBox x:Name="ExecCommandTextBox" InputWidth="330" BorderThickness="0" Margin="0,0,10,0" Height="83" 
                                     Text="{Binding ConsoleCommand, UpdateSourceTrigger=PropertyChanged}" KeyDown="ExecCommandTextBox_KeyDown"/>
                     <fluent:Button x:Name="ExecCommandButton" Header="Execute Command" BorderThickness="0" Padding="0" Margin="0,0,0,0" fluent:RibbonAttachedProperties.RibbonSize="Large"
                                    Command="{Binding ExecuteConsoleCommand}" LargeIcon="{StaticResource ExecuteImage}"/>
-                </fluent:RibbonGroupBox>
-                <fluent:RibbonGroupBox Header="TCM" Width="53" HorizontalAlignment="Right">
-                    <fluent:Button Header="Edit Settings" fluent:RibbonAttachedProperties.RibbonSize="Large" Width="49" HorizontalContentAlignment="Center" Command="{Binding EditSettingsCommand}"
-                                   LargeIcon="{StaticResource SettingsImage}"/>
-                </fluent:RibbonGroupBox>
-                <fluent:RibbonGroupBox Header="Setup" Width="72" HorizontalAlignment="Right">
-                    <fluent:Button Header="Open Setup Wizard" fluent:RibbonAttachedProperties.RibbonSize="Large" Width="70" HorizontalContentAlignment="Center" 
-                                   Command="{Binding OpenSetupWizardCommand}" LargeIcon="{StaticResource WizardImage}"/>
                 </fluent:RibbonGroupBox>
             </fluent:RibbonTabItem>
 
@@ -294,6 +286,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Button BorderThickness="0" Width="110" BorderBrush="Transparent" Background="Transparent" Grid.Column="0" Grid.Row="0">
                         <StackPanel Orientation="Horizontal">
@@ -311,6 +304,12 @@
                         <StackPanel Orientation="Horizontal">
                             <Image Source="{StaticResource WizardImage}" Width="16" Height="16"/>
                             <TextBlock>Setup Wizard</TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Button BorderThickness="0"  Width="110" BorderBrush="Transparent" Background="Transparent" Grid.Column="0" Grid.Row="3">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Resources/mail.ico" Width="16" Height="16"/>
+                            <TextBlock>Contact Us</TextBlock>
                         </StackPanel>
                     </Button>
                 </Grid>

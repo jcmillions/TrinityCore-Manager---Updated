@@ -1,0 +1,11 @@
+﻿<Window x:Class="TrinityCore_Manager.Views.EventActiveListWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Event Active List" Height="492" Width="445" Icon="/TrinityCore-Manager;component/Resources/list.ico" ResizeMode="NoResize">
+    <Grid>
+        <ListBox HorizontalAlignment="Left" Height="374" Margin="10,45,0,0" VerticalAlignment="Top" Width="419"/>
+        <Button Content="Close" HorizontalAlignment="Left" Margin="166,424,0,0" VerticalAlignment="Top" Width="100" Height="30"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="325"/>
+        <Button Content="Filter" HorizontalAlignment="Left" Margin="354,10,0,0" VerticalAlignment="Top" Width="75"/>
+    </Grid>
+</Window>

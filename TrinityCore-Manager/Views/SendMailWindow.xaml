@@ -1,0 +1,18 @@
+﻿<Window x:Class="TrinityCore_Manager.Views.SendMail"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Send Mail" Height="536" Width="596" Icon="/TrinityCore-Manager;component/Resources/mail.ico" ResizeMode="NoResize">
+    <Grid>
+        <Label Content="Character Name:" HorizontalAlignment="Left" Margin="119,10,0,0" VerticalAlignment="Top" FontSize="13" FontWeight="Bold"/>
+        <Label Content="Subject:" HorizontalAlignment="Left" Margin="172,106,0,0" VerticalAlignment="Top" FontSize="13" FontWeight="Bold"/>
+        <Label Content="Item(s):" HorizontalAlignment="Left" Margin="174,42,0,0" VerticalAlignment="Top" FontSize="13" FontWeight="Bold"/>
+        <Label Content="Money:" HorizontalAlignment="Left" Margin="175,74,0,0" VerticalAlignment="Top" FontSize="13" FontWeight="Bold"/>
+        <Label Content="Message:" HorizontalAlignment="Left" Margin="30,141,0,0" VerticalAlignment="Top" FontSize="13" FontWeight="Bold"/>
+        <Button Content="Send" Margin="244,468,246,0" VerticalAlignment="Top" Height="30"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="236,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="236,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="236,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="236,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
+        <TextBox Height="271" Margin="30,173,30,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+    </Grid>
+</Window>

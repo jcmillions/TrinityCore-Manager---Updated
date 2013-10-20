@@ -1,0 +1,17 @@
+﻿<Window x:Class="TrinityCore_Manager.Views.ContactUs"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Contact Us" Height="469" Width="653" ResizeMode="NoResize" Icon="/TrinityCore-Manager;component/Resources/mail.ico">
+    <Grid>
+        <Button Content="Send" Margin="273,0,274,10" Height="28" VerticalAlignment="Bottom"/>
+        <Label Content="Your name:" HorizontalAlignment="Left" Margin="155,10,0,0" FontSize="13" FontWeight="Bold" Height="27" VerticalAlignment="Top"/>
+        <Label Content="Your email:" HorizontalAlignment="Left" Margin="155,42,0,0" FontSize="13" FontWeight="Bold" Height="27" VerticalAlignment="Top"/>
+        <Label Content="Subject:" HorizontalAlignment="Left" Margin="176,74,0,0" FontSize="13" FontWeight="Bold" Height="27" VerticalAlignment="Top"/>
+        <Label Content="Message:" HorizontalAlignment="Left" Margin="40,106,0,0" FontSize="13" FontWeight="Bold" Height="27" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="240,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="240,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="240,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
+        <TextBox Height="242" Margin="40,138,40,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>
