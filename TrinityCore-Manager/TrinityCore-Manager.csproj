@@ -609,7 +609,7 @@
     <Content Include="mysql\mysqldump.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Resources\SplashScreen.png" />
+    <SplashScreen Include="Resources\SplashScreen.png" />
     <Resource Include="Resources\color_theme_16.ico" />
     <Resource Include="Resources\manage.ico" />
   </ItemGroup>
