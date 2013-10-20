@@ -114,6 +114,8 @@ namespace TrinityCore_Manager.ViewModels
 
         public Command EditAccountCommand { get; private set; }
 
+        public Command DatabaseAccountCleanupCommand { get; private set; }
+
         public MainWindowViewModel(IUIVisualizerService uiVisualizerService, IPleaseWaitService pleaseWaitService, IMessageService messageService)
         {
 
@@ -162,6 +164,7 @@ namespace TrinityCore_Manager.ViewModels
             AccountManagementCommand = new Command(AccountManagement);
             AddAccountCommand = new Command(AddAccount);
             EditAccountCommand = new Command(ShowEditAccount);
+            DatabaseAccountCleanupCommand = new Command(ShowDatabaseAccountCleanup);
 
             Characters = new ObservableCollection<string>();
 
@@ -171,6 +174,15 @@ namespace TrinityCore_Manager.ViewModels
             SetColorTheme(Settings.Default.ColorTheme);
 
             Application.Current.Exit += Current_Exit;
+        }
+
+        private void ShowDatabaseAccountCleanup()
+        {
+
+            DatabaseAccountCleanupModel dacm = new DatabaseAccountCleanupModel();
+
+            _uiVisualizerService.ShowDialog(new DatabaseAccountCleanupViewModel(dacm, _pleaseWaitService, _messageService));
+
         }
 
         private void ShowEditAccount()

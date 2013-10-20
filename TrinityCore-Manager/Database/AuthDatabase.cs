@@ -44,8 +44,8 @@ namespace TrinityCore_Manager.Database
             if (dt.Rows.Count > 0)
                 return false;
 
-            await ExecuteNonQuery("INSERT INTO `account` (`username`, `sha_pass_hash`, `expansion`, `email`) VALUES (@username, @hash, @expansion, @email)", 
-                new MySqlParameter("@username", username), new MySqlParameter("@hash", String.Format("{0}:{1}", username.ToUpper(), password.ToUpper()).ToSHA1()), 
+            await ExecuteNonQuery("INSERT INTO `account` (`username`, `sha_pass_hash`, `expansion`, `email`) VALUES (@username, @hash, @expansion, @email)",
+                new MySqlParameter("@username", username), new MySqlParameter("@hash", String.Format("{0}:{1}", username.ToUpper(), password.ToUpper()).ToSHA1()),
                 new MySqlParameter("@expansion", expansion), new MySqlParameter("@email", email));
 
 
@@ -80,7 +80,7 @@ namespace TrinityCore_Manager.Database
             await ExecuteNonQuery("UPDATE `account_access` SET gmlevel=@gmlevel WHERE id = @id", new MySqlParameter("@gmlevel", (int)lvl), new MySqlParameter("@id", id));
 
         }
-        
+
 
         public async Task<GMLevel> GetAccountAccess(int accountId)
         {
@@ -250,7 +250,7 @@ namespace TrinityCore_Manager.Database
                 return;
 
             if (!String.IsNullOrEmpty(password))
-                await ExecuteNonQuery("UPDATE `account` SET sha_pass_hash = @password, sessionkey = '', v = '', s = '' WHERE `id` = @id;", new MySqlParameter("@password", (acct.Username.ToUpper() + ":" + password.ToUpper()).ToSHA1()),  new MySqlParameter("@id", accountId));
+                await ExecuteNonQuery("UPDATE `account` SET sha_pass_hash = @password, sessionkey = '', v = '', s = '' WHERE `id` = @id;", new MySqlParameter("@password", (acct.Username.ToUpper() + ":" + password.ToUpper()).ToSHA1()), new MySqlParameter("@id", accountId));
 
         }
 
@@ -273,7 +273,7 @@ namespace TrinityCore_Manager.Database
                 return;
 
             await ExecuteNonQuery("UPDATE `account` SET expansion = @expansion, sessionkey = '', v = '', s = '' WHERE `id` = @id;", new MySqlParameter("@expansion", (int)exp), new MySqlParameter("@id", accountId));
-        
+
         }
 
         public async Task SetAccountLock(int accountId, bool locked)
@@ -332,15 +332,24 @@ namespace TrinityCore_Manager.Database
 
         }
 
-        public async Task CleanupAccounts(DateTime date)
+        public async Task<int> CleanupAccounts(DateTime lastLogin)
         {
-            await ExecuteNonQuery("DELETE FROM `auth`.`account` WHERE `last_login` < @date AND `joindate` < @date;", new MySqlParameter("@date", new MySqlDateTime(date)));
-            await ExecuteNonQuery("DELETE FROM `auth`.`account` WHERE `last_login` < @date AND `last_login` <> '0000-00-00 00:00:00';", new MySqlParameter("@date", new MySqlDateTime(date)));
+
+            int acctLenBefore = Convert.ToInt32(await ExecuteScalar("SELECT COUNT(*) FROM `account`"));
+
+            await ExecuteNonQuery("DELETE FROM `auth`.`account` WHERE `last_login` < @lastlogin", new MySqlParameter("@lastlogin", lastLogin.ToString("yyyy-MM-dd")));
+
+            int acctLenAfter = Convert.ToInt32(await ExecuteScalar("SELECT COUNT(*) FROM `account`"));
+
+            return acctLenBefore - acctLenAfter;
+
+            //await ExecuteNonQuery("DELETE FROM `auth`.`account` WHERE `last_login` < @date AND `last_login` <> '0000-00-00 00:00:00';", new MySqlParameter("@date", new MySqlDateTime(date)));
+        
         }
 
-        public async Task BanIp(string ip, int bandate, int unbandate, string bannedby, string banreason)
+        public Task BanIp(string ip, int bandate, int unbandate, string bannedby, string banreason)
         {
-            await ExecuteNonQuery("INSERT INTO `ip_banned` (`ip`, `bandate`, `unbandate`, `bannedby`, `banreason`) VALUES (@ip, @bandate, @unbandate, @bannedby, @banreason)", new MySqlParameter("@ip", ip), new MySqlParameter("@bandate", bandate), new MySqlParameter("@unbandate", unbandate), new MySqlParameter("@bannedby", bannedby), new MySqlParameter("@banreason", banreason));
+            return ExecuteNonQuery("INSERT INTO `ip_banned` (`ip`, `bandate`, `unbandate`, `bannedby`, `banreason`) VALUES (@ip, @bandate, @unbandate, @bannedby, @banreason)", new MySqlParameter("@ip", ip), new MySqlParameter("@bandate", bandate), new MySqlParameter("@unbandate", unbandate), new MySqlParameter("@bannedby", bannedby), new MySqlParameter("@banreason", banreason));
         }
 
         public async Task BanAccount(int id, int bandate, int unbandate, string bannedBy, string banReason)
@@ -398,7 +407,7 @@ namespace TrinityCore_Manager.Database
             DataTable dt = await ExecuteQuery("SELECT * FROM `ip_banned`");
 
             List<IPBan> ipBans = new List<IPBan>();
-            
+
             foreach (DataRow dr in dt.Rows)
             {
                 ipBans.Add(BuildIPBan(dr));

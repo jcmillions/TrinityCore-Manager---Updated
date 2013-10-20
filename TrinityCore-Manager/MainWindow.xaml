@@ -104,7 +104,7 @@
                 </fluent:RibbonGroupBox>
 
                 <fluent:RibbonGroupBox x:Name="SMGroup7" Header="Account Clean-Up" Width="99">
-                    <fluent:Button Header="Database Account Clean-Up" Width="97" LargeIcon="{StaticResource CleanImage}"/>
+                    <fluent:Button Header="Database Account Clean-Up" Width="97" LargeIcon="{StaticResource CleanImage}" Command="{Binding DatabaseAccountCleanupCommand}"/>
                 </fluent:RibbonGroupBox>
             </fluent:RibbonTabItem>
 

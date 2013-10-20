@@ -229,6 +229,8 @@
     <Compile Include="Models\AddEditItemModel.cs" />
     <Compile Include="Models\BackupDatabaseModel.cs" />
     <Compile Include="Models\CharacterSelectingModel.cs" />
+    <Compile Include="Models\DatabaseAccountCleanupModel.cs" />
+    <Compile Include="ViewModels\DatabaseAccountCleanupViewModel.cs" />
     <Compile Include="Models\EditAccountModel.cs" />
     <Compile Include="Models\FindItemModel.cs" />
     <Compile Include="Models\IPManagementModel.cs" />
