@@ -581,20 +581,20 @@ namespace TrinityCore_Manager.ViewModels
 
         public static readonly PropertyData SelectedWorldDBProperty = RegisterProperty("SelectedWorldDB", typeof(string));
 
-        [ViewModelToModel("Wizard")]
-        public string TCMVersion
-        {
-            get
-            {
-                return GetValue<string>(TCMVersionProperty);
-            }
-            set
-            {
-                SetValue(TCMVersionProperty, value);
-            }
-        }
+        //[ViewModelToModel("Wizard")]
+        //public string TCMVersion
+        //{
+        //    get
+        //    {
+        //        return GetValue<string>(TCMVersionProperty);
+        //    }
+        //    set
+        //    {
+        //        SetValue(TCMVersionProperty, value);
+        //    }
+        //}
 
-        public static readonly PropertyData TCMVersionProperty = RegisterProperty("TCMVersion", typeof(string));
+        //public static readonly PropertyData TCMVersionProperty = RegisterProperty("TCMVersion", typeof(string));
 
         public int TDBSetupProgress
         {

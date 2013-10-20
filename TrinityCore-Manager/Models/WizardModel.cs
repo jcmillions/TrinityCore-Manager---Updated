@@ -223,19 +223,19 @@ namespace TrinityCore_Manager.Models
 
         public static readonly PropertyData SelectedWorldDBProperty = RegisterProperty("SelectedWorldDB", typeof(string));
 
-        public string TCMVersion
-        {
-            get
-            {
-                return GetValue<string>(TCMVersionProperty);
-            }
-            set
-            {
-                SetValue(TCMVersionProperty, value);
-            }
-        }
+        //public string TCMVersion
+        //{
+        //    get
+        //    {
+        //        return GetValue<string>(TCMVersionProperty);
+        //    }
+        //    set
+        //    {
+        //        SetValue(TCMVersionProperty, value);
+        //    }
+        //}
 
-        public static readonly PropertyData TCMVersionProperty = RegisterProperty("TCMVersion", typeof(string));
+        //public static readonly PropertyData TCMVersionProperty = RegisterProperty("TCMVersion", typeof(string));
 
     }
 }

@@ -43,7 +43,7 @@
             <xctk:WizardPage x:Name="WelcomePage" Title="Welcome!" Description="This wizard will guide you through the process of setting a server environment for TrinityCore Manager v3">
                 <Grid>
                     <Image Source="{StaticResource TCMImage}" Width="504" Height="290" Margin="0,-80,0,0"/>
-                    <Label Content="{Binding TCMVersion, UpdateSourceTrigger=PropertyChanged}" Margin="25,145,0,0" Style="{DynamicResource WoWFont}" FontSize="60" Height="120" Width="120"/>
+                    <!--<Label Content="{Binding TCMVersion, UpdateSourceTrigger=PropertyChanged}" Margin="25,145,0,0" Style="{DynamicResource WoWFont}" FontSize="60" Height="120" Width="120"/>-->
                 </Grid>
             </xctk:WizardPage>
             <xctk:WizardPage x:Name="ConnectOptionPage" Title="Connection Type" Description="How would you like to connect to your TrinityCore server?" PageType="Interior" 

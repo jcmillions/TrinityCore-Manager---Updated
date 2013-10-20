@@ -894,7 +894,7 @@ namespace TrinityCore_Manager.ViewModels
                 SelectedAuthDB = set.DBAuthName,
                 SelectedCharDB = set.DBCharName,
                 SelectedWorldDB = set.DBWorldName,
-                TCMVersion = string.Format("v{0}.{1}", ver.Major, ver.Minor)
+                //TCMVersion = string.Format("v{0}.{1}", ver.Major, ver.Minor)
             };
 
             var wizardView = new SetupWizardViewModel(wm, _uiVisualizerService, _pleaseWaitService, _messageService);
