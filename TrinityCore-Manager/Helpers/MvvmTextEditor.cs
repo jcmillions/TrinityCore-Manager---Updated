@@ -28,6 +28,7 @@ namespace TrinityCore_Manager.Helpers
     //http://stackoverflow.com/questions/12344367/making-avalonedit-mvvm-compatible
     public class MvvmTextEditor : TextEditor, INotifyPropertyChanged
     {
+
         public static DependencyProperty CaretOffsetProperty =
             DependencyProperty.Register("CaretOffset", typeof(int), typeof(MvvmTextEditor),
             // binding changed callback: set value of underlying property
@@ -41,7 +42,13 @@ namespace TrinityCore_Manager.Helpers
         public static DependencyProperty TextProperty = DependencyProperty.Register("NewText", typeof(string), typeof(MvvmTextEditor),
             new PropertyMetadata((obj, args) =>
             {
+
                 MvvmTextEditor target = (MvvmTextEditor)obj;
+
+                string newVal = (string)args.NewValue;
+
+                if (target.Text != newVal)
+                    target.SetBaseText(newVal);
 
                 target.ScrollToEnd();
 
@@ -49,9 +56,27 @@ namespace TrinityCore_Manager.Helpers
 
         public string NewText
         {
-            get { return (string)GetValue(TextProperty); }
-            set { SetValue(TextProperty, value); }
+            get
+            {
+                return (string)GetValue(TextProperty);
+            }
+            set
+            {
+                SetValue(TextProperty, value);
+            }
         }
+
+        //public new string Text
+        //{
+        //    get
+        //    {
+        //        return (string)GetValue(TextProperty);
+        //    }
+        //    set
+        //    {
+        //        SetValue(TextProperty, value);
+        //    }
+        //}
 
         public new int CaretOffset
         {
@@ -59,23 +84,26 @@ namespace TrinityCore_Manager.Helpers
             set { base.CaretOffset = value; }
         }
 
-        public int Length { get { return base.Text.Length; } }
-
-        protected override void OnTextChanged(EventArgs e)
-        {
-            NewText = Text;
-            RaisePropertyChanged("Length");
-            base.OnTextChanged(e);
-        }
-
-        private delegate void SetBaseTextDelegate(string text);
+        public delegate void SetBaseTextDelegate(string text);
 
         public void SetBaseText(string text)
         {
             Dispatcher.BeginInvoke(new SetBaseTextDelegate(txt =>
             {
-                Text = txt;
+                base.Text = text;
             }), text);
+        }
+
+        public int Length { get { return base.Text.Length; } }
+
+        protected override void OnTextChanged(EventArgs e)
+        {
+
+            NewText = Text;
+
+            RaisePropertyChanged("Length");
+            base.OnTextChanged(e);
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
