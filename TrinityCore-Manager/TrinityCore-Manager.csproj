@@ -288,6 +288,9 @@
     <Compile Include="Views\AddEditItemWindow.xaml.cs">
       <DependentUpon>AddEditItemWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\AutoBroadcastWindow.xaml.cs">
+      <DependentUpon>AutoBroadcastWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\BackupDatabaseWindow.xaml.cs">
       <DependentUpon>BackupDatabaseWindow.xaml</DependentUpon>
     </Compile>
@@ -330,6 +333,9 @@
     <Compile Include="Views\SendMailWindow.xaml.cs">
       <DependentUpon>SendMailWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ServerStatsWindow.xaml.cs">
+      <DependentUpon>ServerStatsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
@@ -370,6 +376,10 @@
     <Page Include="Views\AddEditItemWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\AutoBroadcastWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\BackupDatabaseWindow.xaml">
       <SubType>Designer</SubType>
@@ -424,6 +434,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SendMailWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ServerStatsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -613,6 +627,8 @@
     <Content Include="mysql\mysqldump.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\broadcast.ico" />
+    <Resource Include="Resources\stats.ico" />
     <SplashScreen Include="Resources\SplashScreen.png" />
     <Resource Include="Resources\color_theme_16.ico" />
     <Resource Include="Resources\manage.ico" />
