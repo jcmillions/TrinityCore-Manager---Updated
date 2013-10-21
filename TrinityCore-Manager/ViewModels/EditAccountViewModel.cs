@@ -24,6 +24,8 @@ namespace TrinityCore_Manager.ViewModels
 
         public Command SaveAccountCommand { get; private set; }
 
+        public Command DeleteAccountCommand { get; private set; }
+
         public EditAccountViewModel(EditAccountModel model, IPleaseWaitService pleaseWaitService, IMessageService messageService)
         {
 
@@ -33,6 +35,44 @@ namespace TrinityCore_Manager.ViewModels
             _pleaseWaitService = pleaseWaitService;
 
             SaveAccountCommand = new Command(SaveAccount);
+            DeleteAccountCommand = new Command(DeleteAccount);
+
+        }
+
+        public async void DeleteAccount()
+        {
+
+            _pleaseWaitService.Show("Deleting...");
+
+            if (string.IsNullOrEmpty(AccountName))
+            {
+
+                _pleaseWaitService.Hide();
+
+                _messageService.ShowError("Account name required!");
+
+                return;
+
+            }
+
+            var acct = await TCManager.Instance.AuthDatabase.GetAccount(AccountName);
+
+            if (acct == null)
+            {
+
+                _pleaseWaitService.Hide();
+
+                _messageService.ShowError("Account does not exist!");
+
+                return;
+
+            }
+
+            await TCManager.Instance.AuthDatabase.DeleteAccount(acct.Id);
+
+            _pleaseWaitService.Hide();
+
+            SaveAndCloseViewModel();
 
         }
 
@@ -86,8 +126,6 @@ namespace TrinityCore_Manager.ViewModels
 
             if (acct == null)
             {
-
-                Console.WriteLine(AccountName);
 
                 _pleaseWaitService.Hide();
 

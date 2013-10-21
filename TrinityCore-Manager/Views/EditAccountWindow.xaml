@@ -12,7 +12,7 @@
     </i:Interaction.Behaviors>
 
     <Grid Height="427" VerticalAlignment="Top">
-        <Button Content="Modify Account" Margin="189,374,189,20" Command="{Binding SaveAccountCommand}"/>
+        <Button Content="Modify Account" Margin="121,372,257,22" Command="{Binding SaveAccountCommand}"/>
         <helpers:AutoCompleteTextBox Height="24" Width="252" Margin="121,43,121,0" VerticalAlignment="Top" Text="{Binding AccountName, UpdateSourceTrigger=PropertyChanged}" 
                                      AutoCompletionList="{Binding AutoCompleteList, UpdateSourceTrigger=PropertyChanged}"/>
         <Label Content="Account Name" Margin="189,12,189,0" VerticalAlignment="Top" FontWeight="Bold"/>
@@ -24,5 +24,6 @@
         <ComboBox Margin="165,310,165,0" VerticalAlignment="Top" ItemsSource="{Binding Ranks}" SelectedItem="{Binding Rank, UpdateSourceTrigger=PropertyChanged}"/>
         <Label Content="Expansion" Margin="211,213,189,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <ComboBox Margin="165,244,165,0" VerticalAlignment="Top" ItemsSource="{Binding Expansions}" SelectedItem="{Binding Expansion, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button Content="Delete Account" Margin="270,372,108,22" Command="{Binding DeleteAccountCommand}"/>
     </Grid>
 </Window>

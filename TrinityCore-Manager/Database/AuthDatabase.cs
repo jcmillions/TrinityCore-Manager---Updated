@@ -60,6 +60,11 @@ namespace TrinityCore_Manager.Database
 
         }
 
+        public Task DeleteAccount(int id)
+        {
+            return ExecuteNonQuery("DELETE FROM `account` WHERE id=@id", new MySqlParameter("@id", id));
+        }
+
         /// <summary>
         /// Modify an account
         /// </summary>
