@@ -4,25 +4,31 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:viewModels="clr-namespace:TrinityCore_Manager.ViewModels"
         xmlns:catel="http://catel.codeplex.com"
-        Title="Account Management" Height="482" Width="404" ResizeMode="NoResize" Icon="/TrinityCore-Manager;component/Resources/edit.ico">
+        xmlns:helpers="clr-namespace:TrinityCore_Manager.Helpers"
+        Title="Account Management" Height="563" Width="540.272" ResizeMode="NoResize" Icon="/TrinityCore-Manager;component/Resources/edit.ico">
 
     <i:Interaction.Behaviors>
         <catel:WindowBehavior x:Name="mvvmBehavior" ViewModelType="{x:Type viewModels:AccountManagementViewModel}"/>
     </i:Interaction.Behaviors>
 
     <Grid>
-        <Label Content="Username:" HorizontalAlignment="Left" Margin="23,24,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="94,28,0,0" TextWrapping="Wrap" Text="{Binding UsernameText}" VerticalAlignment="Top" Width="189"/>
-        <Button Content="Ban Account" HorizontalAlignment="Left" Margin="288,29,0,0" VerticalAlignment="Top" Width="75" Command="{Binding BanAccountCommand}"/>
-        <ListView HorizontalAlignment="Left" Height="331" Margin="10,66,0,0" VerticalAlignment="Top" Width="376" 
+        <Label Content="Username:" HorizontalAlignment="Left" Margin="114,18,0,0" VerticalAlignment="Top"/>
+        <helpers:AutoCompleteTextBox Height="24" Width="189" Margin="185,23,160,0" VerticalAlignment="Top" Text="{Binding UsernameText, UpdateSourceTrigger=PropertyChanged}" 
+                                     AutoCompletionList="{Binding AutoCompleteList, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button Content="Ban Account" HorizontalAlignment="Left" Margin="239,105,0,0" VerticalAlignment="Top" Width="75" Command="{Binding BanAccountCommand}"/>
+        <ListView HorizontalAlignment="Left" Height="331" Margin="6,143,0,0" VerticalAlignment="Top" Width="524" 
                   ItemsSource="{Binding TheAccounts, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedAccount}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Username" Width="365" DisplayMemberBinding="{Binding Username}"/>
+                    <GridViewColumn Header="Username" Width="150" DisplayMemberBinding="{Binding Username}"/>
+                    <GridViewColumn Header="Ban Reason" Width="250" DisplayMemberBinding="{Binding BanReason}"/>
+                    <GridViewColumn Header="Banned On" Width="110" DisplayMemberBinding="{Binding BanDate}"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Unban Selected Account" HorizontalAlignment="Left" Margin="131,404,0,0" VerticalAlignment="Top" Width="139" Height="30" Command="{Binding UnbanAccountCommand}"/>
+        <Button Content="Unban Selected Account" HorizontalAlignment="Left" Margin="203,484,0,0" VerticalAlignment="Top" Width="139" Height="30" Command="{Binding UnbanAccountCommand}"/>
+        <Label Content="Ban Reason:" HorizontalAlignment="Left" Margin="84,67,0,0" VerticalAlignment="Top"/>
+        <TextBox Height="24" Margin="163,67,99,0" VerticalAlignment="Top" Text="{Binding BanReasonText, UpdateSourceTrigger=PropertyChanged}"/>
 
     </Grid>
 </Window>

@@ -439,8 +439,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\AccountModel.cs" />
-    <Compile Include="Models\AccountsModel.cs" />
+    <Compile Include="Models\AccountManagementModel.cs" />
+    <Compile Include="Models\AccountsManagementModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

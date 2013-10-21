@@ -25,27 +25,27 @@ using Catel.Data;
 namespace TrinityCore_Manager.Models
 {
     [Serializable]
-    public class AccountsModel : ModelBase
+    public class AccountsManagementModel : ModelBase
     {
 
-        public AccountsModel()
+        public AccountsManagementModel()
         {
-            TheAccounts = new ObservableCollection<AccountModel>();
+            TheAccounts = new ObservableCollection<AccountManagementModel>();
         }
 
-        public AccountsModel(IEnumerable<AccountModel> accounts)
+        public AccountsManagementModel(IEnumerable<AccountManagementModel> accounts)
         {
-            TheAccounts = new ObservableCollection<AccountModel>(accounts);
+            TheAccounts = new ObservableCollection<AccountManagementModel>(accounts);
         }
 
-        protected AccountsModel(SerializationInfo info, StreamingContext context)
+        protected AccountsManagementModel(SerializationInfo info, StreamingContext context)
             : base(info, context) { }
 
-        public ObservableCollection<AccountModel> TheAccounts
+        public ObservableCollection<AccountManagementModel> TheAccounts
         {
             get
             {
-                return GetValue<ObservableCollection<AccountModel>>(TheAccountsProperty);
+                return GetValue<ObservableCollection<AccountManagementModel>>(TheAccountsProperty);
             }
             set
             {
@@ -53,7 +53,7 @@ namespace TrinityCore_Manager.Models
             }
         }
 
-        public static readonly PropertyData TheAccountsProperty = RegisterProperty("TheAccounts", typeof(ObservableCollection<AccountModel>));
+        public static readonly PropertyData TheAccountsProperty = RegisterProperty("TheAccounts", typeof(ObservableCollection<AccountManagementModel>));
 
     }
 }

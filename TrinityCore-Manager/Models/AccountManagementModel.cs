@@ -24,15 +24,17 @@ using Catel.Data;
 namespace TrinityCore_Manager.Models
 {
     [Serializable]
-    public class AccountModel : ModelBase
+    public class AccountManagementModel : ModelBase
     {
 
-        public AccountModel(string username)
+        public AccountManagementModel(string username, DateTime banDate, string banReason = "")
         {
             Username = username;
+            BanDate = banDate.ToString("MM-dd-yyyy");
+            BanReason = banReason;
         }
 
-        protected AccountModel(SerializationInfo info, StreamingContext context)
+        protected AccountManagementModel(SerializationInfo info, StreamingContext context)
             : base(info, context) { }
 
         public string Username
@@ -48,6 +50,34 @@ namespace TrinityCore_Manager.Models
         }
 
         public static readonly PropertyData UsernameProperty = RegisterProperty("Username", typeof(string), string.Empty);
+
+        public string BanReason
+        {
+            get
+            {
+                return GetValue<string>(BanReasonProperty);
+            }
+            set
+            {
+                SetValue(BanReasonProperty, value);
+            }
+        }
+
+        public static readonly PropertyData BanReasonProperty = RegisterProperty("BanReason", typeof(string));
+
+        public string BanDate
+        {
+            get
+            {
+                return GetValue<string>(BanDateProperty);
+            }
+            set
+            {
+                SetValue(BanDateProperty, value);
+            }
+        }
+
+        public static readonly PropertyData BanDateProperty = RegisterProperty("BanDate", typeof(string));
 
     }
 }

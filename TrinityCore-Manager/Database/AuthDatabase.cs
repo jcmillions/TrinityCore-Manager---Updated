@@ -208,6 +208,32 @@ namespace TrinityCore_Manager.Database
 
         }
 
+        public async Task<List<BannedAccount>> SearchForBannedAccount(string like)
+        {
+
+            List<Account> accountsLike = await SearchForAccount(like);
+
+            List<BannedAccount> bannedAccountsLike = new List<BannedAccount>();
+
+            foreach (var account in accountsLike)
+            {
+
+                BannedAccount ban = await GetBannedAccount(account.Id);
+
+                if (ban == null)
+                    continue;
+
+                if (ban.Active)
+                    continue;
+
+                bannedAccountsLike.Add(ban);
+
+            }
+
+            return bannedAccountsLike;
+
+        }
+
         public async Task<List<BannedAccount>> GetBannedAccounts()
         {
 
@@ -218,26 +244,47 @@ namespace TrinityCore_Manager.Database
             foreach (DataRow row in dt.Rows)
             {
 
-                int id = Convert.ToInt32((uint)row["id"]);
-                DateTime banDate = Convert.ToInt64(((uint)row["bandate"])).ToDateTime();
-                DateTime unbanDate = Convert.ToInt64(((uint)row["unbandate"])).ToDateTime();
-                string bannedby = (string)row["bannedby"];
-                string banreason = (string)row["banreason"];
-                bool active = ((byte)row["active"]) == 1;
-
-                BannedAccount bannedAccount = new BannedAccount();
-                bannedAccount.Id = id;
-                bannedAccount.BanDate = banDate;
-                bannedAccount.UnbanDate = unbanDate;
-                bannedAccount.BannedBy = bannedby;
-                bannedAccount.BanReason = banreason;
-                bannedAccount.Active = active;
+                var bannedAccount = BuildAccountBan(row);
 
                 bannedAccounts.Add(bannedAccount);
 
             }
 
             return bannedAccounts;
+
+        }
+
+        public async Task<BannedAccount> GetBannedAccount(int userId)
+        {
+
+            DataTable dt = await ExecuteQuery("SELECT * FROM `account_banned` WHERE active = 1 AND id=@id", new MySqlParameter("@id", userId));
+
+            if (dt.Rows.Count == 0)
+                return null;
+
+            return BuildAccountBan(dt.Rows[0]);
+
+        }
+
+        private BannedAccount BuildAccountBan(DataRow row)
+        {
+
+            int id = Convert.ToInt32((uint)row["id"]);
+            DateTime banDate = Convert.ToInt64(((uint)row["bandate"])).ToDateTime();
+            DateTime unbanDate = Convert.ToInt64(((uint)row["unbandate"])).ToDateTime();
+            string bannedby = (string)row["bannedby"];
+            string banreason = (string)row["banreason"];
+            bool active = ((byte)row["active"]) == 1;
+
+            BannedAccount bannedAccount = new BannedAccount();
+            bannedAccount.Id = id;
+            bannedAccount.BanDate = banDate;
+            bannedAccount.UnbanDate = unbanDate;
+            bannedAccount.BannedBy = bannedby;
+            bannedAccount.BanReason = banreason;
+            bannedAccount.Active = active;
+
+            return bannedAccount;
 
         }
 
@@ -344,7 +391,7 @@ namespace TrinityCore_Manager.Database
             return acctLenBefore - acctLenAfter;
 
             //await ExecuteNonQuery("DELETE FROM `auth`.`account` WHERE `last_login` < @date AND `last_login` <> '0000-00-00 00:00:00';", new MySqlParameter("@date", new MySqlDateTime(date)));
-        
+
         }
 
         public Task BanIp(string ip, int bandate, int unbandate, string bannedby, string banreason)

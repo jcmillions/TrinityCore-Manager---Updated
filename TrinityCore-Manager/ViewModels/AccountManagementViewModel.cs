@@ -24,6 +24,7 @@ using Catel.MVVM;
 using Catel.MVVM.Services;
 using TrinityCore_Manager.Database.Classes;
 using TrinityCore_Manager.Extensions;
+using TrinityCore_Manager.Helpers;
 using TrinityCore_Manager.Models;
 using TrinityCore_Manager.TCM;
 
@@ -41,7 +42,7 @@ namespace TrinityCore_Manager.ViewModels
 
         public Command UnbanAccountCommand { get; private set; }
 
-        public AccountManagementViewModel(AccountsModel model, IUIVisualizerService uiVisualizerService, IPleaseWaitService pleaseWaitService, IMessageService messageService)
+        public AccountManagementViewModel(AccountsManagementModel model, IUIVisualizerService uiVisualizerService, IPleaseWaitService pleaseWaitService, IMessageService messageService)
         {
 
             Accounts = model;
@@ -60,16 +61,21 @@ namespace TrinityCore_Manager.ViewModels
 
             _pleaseWaitService.Show("Refreshing...");
 
-            List<AccountModel> accountList = new List<AccountModel>();
+            List<AccountManagementModel> accountList = new List<AccountManagementModel>();
 
             List<BannedAccount> accts = await TCManager.Instance.AuthDatabase.GetBannedAccounts();
 
             foreach (var acct in accts)
             {
-                accountList.Add(new AccountModel((await TCManager.Instance.AuthDatabase.GetAccount(acct.Id)).Username));
+
+                var account = await TCManager.Instance.AuthDatabase.GetAccount(acct.Id);
+                var ban = await TCManager.Instance.AuthDatabase.GetBannedAccount(acct.Id);
+
+                accountList.Add(new AccountManagementModel(account.Username, ban.BanDate, ban.BanReason));
+
             }
 
-            TheAccounts = new ObservableCollection<AccountModel>(accountList);
+            TheAccounts = new ObservableCollection<AccountManagementModel>(accountList);
 
             _pleaseWaitService.Hide();
 
@@ -102,7 +108,7 @@ namespace TrinityCore_Manager.ViewModels
 
             }
 
-            await TCManager.Instance.AuthDatabase.BanAccount(acct.Id, (int)DateTime.Now.ToUnixTimestamp(), (int)DateTime.Now.AddYears(1).ToUnixTimestamp(), "Admin", "");
+            await TCManager.Instance.AuthDatabase.BanAccount(acct.Id, (int)DateTime.Now.ToUnixTimestamp(), (int)DateTime.Now.AddYears(1).ToUnixTimestamp(), "Admin", BanReasonText);
 
             Refresh();
 
@@ -142,11 +148,11 @@ namespace TrinityCore_Manager.ViewModels
         }
 
         [Model]
-        public AccountsModel Accounts
+        public AccountsManagementModel Accounts
         {
             get
             {
-                return GetValue<AccountsModel>(AccountsProperty);
+                return GetValue<AccountsManagementModel>(AccountsProperty);
             }
             set
             {
@@ -154,15 +160,15 @@ namespace TrinityCore_Manager.ViewModels
             }
         }
 
-        public static readonly PropertyData AccountsProperty = RegisterProperty("Accounts", typeof(AccountsModel));
+        public static readonly PropertyData AccountsProperty = RegisterProperty("Accounts", typeof(AccountsManagementModel));
 
 
         [ViewModelToModel("Accounts")]
-        public ObservableCollection<AccountModel> TheAccounts
+        public ObservableCollection<AccountManagementModel> TheAccounts
         {
             get
             {
-                return GetValue<ObservableCollection<AccountModel>>(TheAccountsProperty);
+                return GetValue<ObservableCollection<AccountManagementModel>>(TheAccountsProperty);
             }
             set
             {
@@ -170,14 +176,14 @@ namespace TrinityCore_Manager.ViewModels
             }
         }
 
-        public static readonly PropertyData TheAccountsProperty = RegisterProperty("TheAccounts", typeof(ObservableCollection<AccountModel>));
+        public static readonly PropertyData TheAccountsProperty = RegisterProperty("TheAccounts", typeof(ObservableCollection<AccountManagementModel>));
 
 
-        public AccountModel SelectedAccount
+        public AccountManagementModel SelectedAccount
         {
             get
             {
-                return GetValue<AccountModel>(SelectedAccountProperty);
+                return GetValue<AccountManagementModel>(SelectedAccountProperty);
             }
             set
             {
@@ -185,7 +191,7 @@ namespace TrinityCore_Manager.ViewModels
             }
         }
 
-        public static readonly PropertyData SelectedAccountProperty = RegisterProperty("SelectedAccount", typeof(AccountModel));
+        public static readonly PropertyData SelectedAccountProperty = RegisterProperty("SelectedAccount", typeof(AccountManagementModel));
 
         public string UsernameText
         {
@@ -195,11 +201,57 @@ namespace TrinityCore_Manager.ViewModels
             }
             set
             {
+
+                TCManager.Instance.AuthDatabase.SearchForAccount(value).ContinueWith(task =>
+                {
+
+                    var acl = new ObservableCollection<AutoCompleteEntry>();
+
+                    List<Account> accts = task.Result;
+
+                    foreach (var acct in accts)
+                    {
+                        acl.Add(new AutoCompleteEntry(acct.Username, acct.Username));
+                    }
+
+                    AutoCompleteList = acl;
+
+                });
+
                 SetValue(UsernameTextProperty, value);
+            
             }
         }
 
         public static readonly PropertyData UsernameTextProperty = RegisterProperty("UsernameText", typeof(string));
+
+        public string BanReasonText
+        {
+            get
+            {
+                return GetValue<string>(BanReasonTextProperty);
+            }
+            set
+            {
+                SetValue(BanReasonTextProperty, value);
+            }
+        }
+
+        public static readonly PropertyData BanReasonTextProperty = RegisterProperty("BanReasonText", typeof(string));
+
+        public ObservableCollection<AutoCompleteEntry> AutoCompleteList
+        {
+            get
+            {
+                return GetValue<ObservableCollection<AutoCompleteEntry>>(AutoCompleteListProperty);
+            }
+            set
+            {
+                SetValue(AutoCompleteListProperty, value);
+            }
+        }
+
+        public static readonly PropertyData AutoCompleteListProperty = RegisterProperty("AutoCompleteList", typeof(ObservableCollection<AutoCompleteEntry>));
 
     }
 }

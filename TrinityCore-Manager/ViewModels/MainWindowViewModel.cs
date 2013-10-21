@@ -206,16 +206,21 @@ namespace TrinityCore_Manager.ViewModels
         private async void AccountManagement()
         {
 
-            List<AccountModel> accountList = new List<AccountModel>();
+            List<AccountManagementModel> accountList = new List<AccountManagementModel>();
 
             List<BannedAccount> accts = await TCManager.Instance.AuthDatabase.GetBannedAccounts();
 
             foreach (var acct in accts)
             {
-                accountList.Add(new AccountModel((await TCManager.Instance.AuthDatabase.GetAccount(acct.Id)).Username));
+
+                var account = await TCManager.Instance.AuthDatabase.GetAccount(acct.Id);
+                var ban = await TCManager.Instance.AuthDatabase.GetBannedAccount(acct.Id);
+
+                accountList.Add(new AccountManagementModel(account.Username, ban.BanDate, ban.BanReason));
+
             }
 
-            AccountsModel acctsModel = new AccountsModel(accountList);
+            AccountsManagementModel acctsModel = new AccountsManagementModel(accountList);
 
             _uiVisualizerService.ShowDialog(new AccountManagementViewModel(acctsModel, _uiVisualizerService, _pleaseWaitService, _messageService));
 
