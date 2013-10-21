@@ -20,6 +20,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 using ICSharpCode.AvalonEdit;
 
 namespace TrinityCore_Manager.Helpers
@@ -37,18 +38,19 @@ namespace TrinityCore_Manager.Helpers
             })
         );
 
-        public static DependencyProperty TextPropertry = DependencyProperty.Register("Text", typeof(string), typeof(MvvmTextEditor),
+        public static DependencyProperty TextProperty = DependencyProperty.Register("NewText", typeof(string), typeof(MvvmTextEditor),
             new PropertyMetadata((obj, args) =>
             {
                 MvvmTextEditor target = (MvvmTextEditor)obj;
-                target.Text = (string)args.NewValue;
+
                 target.ScrollToEnd();
+
             }));
 
-        public new string Text
+        public string NewText
         {
-            get { return base.Text; }
-            set { base.Text = value; }
+            get { return (string)GetValue(TextProperty); }
+            set { SetValue(TextProperty, value); }
         }
 
         public new int CaretOffset
@@ -61,8 +63,19 @@ namespace TrinityCore_Manager.Helpers
 
         protected override void OnTextChanged(EventArgs e)
         {
+            NewText = Text;
             RaisePropertyChanged("Length");
             base.OnTextChanged(e);
+        }
+
+        private delegate void SetBaseTextDelegate(string text);
+
+        public void SetBaseText(string text)
+        {
+            Dispatcher.BeginInvoke(new SetBaseTextDelegate(txt =>
+            {
+                Text = txt;
+            }), text);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

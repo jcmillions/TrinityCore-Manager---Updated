@@ -116,6 +116,8 @@ namespace TrinityCore_Manager.ViewModels
 
         public Command DatabaseAccountCleanupCommand { get; private set; }
 
+        public Command ContactUsCommand { get; private set; }
+
         public MainWindowViewModel(IUIVisualizerService uiVisualizerService, IPleaseWaitService pleaseWaitService, IMessageService messageService)
         {
 
@@ -165,6 +167,7 @@ namespace TrinityCore_Manager.ViewModels
             AddAccountCommand = new Command(AddAccount);
             EditAccountCommand = new Command(ShowEditAccount);
             DatabaseAccountCleanupCommand = new Command(ShowDatabaseAccountCleanup);
+            ContactUsCommand = new Command(ShowContactUs);
 
             Characters = new ObservableCollection<string>();
 
@@ -174,6 +177,15 @@ namespace TrinityCore_Manager.ViewModels
             SetColorTheme(Settings.Default.ColorTheme);
 
             Application.Current.Exit += Current_Exit;
+        }
+
+        private void ShowContactUs()
+        {
+
+            ContactUsModel model = new ContactUsModel();
+
+            _uiVisualizerService.ShowDialog(new ContactUsViewModel(model, _pleaseWaitService, _messageService));
+
         }
 
         private void ShowDatabaseAccountCleanup()

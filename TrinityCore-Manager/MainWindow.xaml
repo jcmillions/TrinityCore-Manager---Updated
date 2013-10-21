@@ -233,14 +233,14 @@
 
             <TabItem Header="Console">
 
-                <helpers:MvvmTextEditor Text="{Binding ConsoleText, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.CanContentScroll="True" 
+                <helpers:MvvmTextEditor NewText="{Binding ConsoleText, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.CanContentScroll="True" 
                                         ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True"/>
 
             </TabItem>
 
             <TabItem Header="Output">
 
-                <helpers:MvvmTextEditor Text="{Binding OutputText, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.CanContentScroll="True" 
+                <helpers:MvvmTextEditor NewText="{Binding OutputText, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.CanContentScroll="True" 
                                         ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True"/>
 
             </TabItem>
@@ -306,7 +306,7 @@
                             <TextBlock>Setup Wizard</TextBlock>
                         </StackPanel>
                     </Button>
-                    <Button BorderThickness="0"  Width="110" BorderBrush="Transparent" Background="Transparent" Grid.Column="0" Grid.Row="3">
+                    <Button BorderThickness="0"  Width="110" BorderBrush="Transparent" Background="Transparent" Grid.Column="0" Grid.Row="3" Command="{Binding ContactUsCommand}">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="Resources/mail.ico" Width="16" Height="16"/>
                             <TextBlock>Contact Us</TextBlock>
