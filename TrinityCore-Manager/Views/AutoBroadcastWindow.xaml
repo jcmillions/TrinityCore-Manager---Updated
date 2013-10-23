@@ -1,11 +1,17 @@
-﻿<Window x:Class="TrinityCore_Manager.Views.AutoBroadcastWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Auto Broadcast" Height="176" Width="585" ResizeMode="NoResize" Icon="/TrinityCore-Manager;component/Resources/broadcast.ico">
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="TrinityCore_Manager.Views.AutoBroadcastWindow"
+        Title="Auto Broadcast" Height="298" Width="585" ResizeMode="NoResize" Icon="/TrinityCore-Manager;component/Resources/broadcast.ico">
     <Grid>
         <Label Content="Auto Broadcast Message:" HorizontalAlignment="Left" Margin="209,21,0,0" VerticalAlignment="Top" FontSize="13" FontWeight="Bold"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="559"/>
-        <Button Content="Save" Margin="240,108,0,0" VerticalAlignment="Top" Height="30" HorizontalAlignment="Left" Width="100"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="559" ToolTip="The text to broadcast. Color and item/spell/quest link formating codes can be used."/>
+        <Button Content="Save" Margin="240,230,0,0" VerticalAlignment="Top" Height="30" HorizontalAlignment="Left" Width="100"/>
+        <Label Content="Realm ID:" HorizontalAlignment="Left" Margin="184,86,0,0" VerticalAlignment="Top" FontSize="13" FontWeight="Bold"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="258,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="115" ToolTip="The `realmlist`.`id`. Defines which realm this entry belongs to. Use -1 for all realms to load this entry."/>
+        <Label Content="Weight:" HorizontalAlignment="Left" Margin="195,118,0,0" VerticalAlignment="Top" FontSize="13" FontWeight="Bold"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="258,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="115" ToolTip="A non-negative integer. Entries with higher weight have more chance to get picked."/>
+        <Label Content="Note: In order for this to work properly you have to edit AutoBroadcast.On = 0 &#xD;&#xA;to AutoBroadcast.On = 1 in your worldserver.conf" HorizontalAlignment="Left" Margin="86,165,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
