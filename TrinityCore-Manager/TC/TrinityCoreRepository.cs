@@ -24,6 +24,7 @@ using LibGit2Sharp;
 using LibGit2Sharp.Handlers;
 using TrinityCore_Manager.Misc;
 using TrinityCore_Manager.TCM;
+using Xceed.Wpf.Toolkit;
 
 namespace TrinityCore_Manager.TC
 {
@@ -58,10 +59,15 @@ namespace TrinityCore_Manager.TC
 
                 });
 
-                Repository.Clone(TrinityCoreGit, cloneTo, false, true, thandler, chandler);
-
+                try
+                {
+                    Repository.Clone(TrinityCoreGit, cloneTo, false, true, thandler, chandler);
+                }
+                catch (LibGit2SharpException)
+                {
+                    //MessageBox.Show("The selected trunk location is not a valid git repository.", "Something went wrong!", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                }
             });
-
         }
 
         public static async Task Pull(string gitDir, IProgress<string> progress)

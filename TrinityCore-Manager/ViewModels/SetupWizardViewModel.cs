@@ -39,22 +39,17 @@ namespace TrinityCore_Manager.ViewModels
 {
     public class SetupWizardViewModel : ViewModelBase
     {
-
         private readonly IUIVisualizerService _uiVisualizerService;
         private readonly IPleaseWaitService _pleaseWaitService;
         private readonly IMessageService _messageService;
+
         public Command<CancelRoutedEventArgs> Next { get; private set; }
-
         public Command<CancelRoutedEventArgs> Previous { get; private set; }
-
         public Command<CancelRoutedEventArgs> Finish { get; private set; }
 
         public Command AuthDB { get; private set; }
-
         public Command CharDB { get; private set; }
-
         public Command WorldDB { get; private set; }
-
         public Command DownloadApplyTDBCommand { get; private set; }
 
         public SetupWizardViewModel(IUIVisualizerService uiVisualizerService, IPleaseWaitService pleaseWaitService, IMessageService messageService)
@@ -84,56 +79,55 @@ namespace TrinityCore_Manager.ViewModels
 
         private async void DownloadApplyTDB()
         {
-
             var result = _messageService.Show("This will create the 'world' database. If the database already exists, it will be overwritten! Continue?", "Warning!", MessageButton.YesNo, MessageImage.Warning);
 
             if (result == MessageResult.Yes)
             {
-
                 Progress<int> progress = new Progress<int>(val =>
                 {
                     TDBSetupProgress = val;
                 });
 
-                TDBSetupWorking = true;
+                //var wizard = e.Source as Xceed.Wpf.Toolkit.Wizard;
 
+                //if (Wizard != null)
+                //{
+                //    Wizard.CanSelectNextPage = false;
+                //    Wizard.CanSelectPreviousPage = false;
+                //}
+
+                TDBSetupWorking = true;
+                
                 string tempDir = FileHelper.GenerateTempDirectory();
                 string file = Path.Combine(tempDir, "TDB.7z");
                 string extractTo = Path.Combine(tempDir, "TDB");
-
                 Directory.CreateDirectory(extractTo);
 
                 await TDB.DownloadTDBAsync(progress, file);
                 await TDB.Extract7zAsync(file, extractTo, progress);
 
-
                 string[] files = Directory.GetFiles(extractTo);
-
                 string tdbSql = "";
 
                 foreach (string f in files)
                 {
                     if (Path.GetFileName(f).StartsWith("TDB_full"))
+                    {
                         tdbSql = f;
-
+                        break;
+                    }
                 }
 
                 if (!string.IsNullOrEmpty(tdbSql))
                 {
-
                     MySqlDatabase db = new WorldDatabase(MySQLHost, MySQLPort, MySQLUsername, MySQLPassword, "world");
                     await db.CreateDatabaseAsync();
-
                     await TDB.ApplyAsync(tdbSql, db, progress, new CancellationTokenSource());
-
                 }
 
                 FileHelper.DeleteDirectory(tempDir);
-
                 TDBSetupWorking = false;
-
             }
-
         }
 
         private void SelectAuthDB()
@@ -181,7 +175,6 @@ namespace TrinityCore_Manager.ViewModels
 
         private void NextButtonPressed(CancelRoutedEventArgs e)
         {
-
             var wizard = e.Source as Xceed.Wpf.Toolkit.Wizard;
 
             if (wizard != null)
