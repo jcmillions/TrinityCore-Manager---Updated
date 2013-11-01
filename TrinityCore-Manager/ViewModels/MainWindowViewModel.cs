@@ -757,7 +757,6 @@ namespace TrinityCore_Manager.ViewModels
             }
             else
             {
-
                 BusyIndeterminate = true;
                 OutputText = String.Empty;
 
@@ -766,15 +765,17 @@ namespace TrinityCore_Manager.ViewModels
                     OutputText += prog + Environment.NewLine;
                 }));
 
-                await TrinityCoreRepository.Pull(Settings.Default.TrunkLocation, progress).ContinueWith(task =>
+                bool pullSuccess = await TrinityCoreRepository.Pull(Settings.Default.TrunkLocation, progress);
+
+                _dispatcherService.Invoke(() =>
                 {
-
-                    _dispatcherService.BeginInvokeIfRequired(() => _messageService.Show("The TrinityCore repository has been updated to the latest version.", "Success"));
-
-                    _isCloning = false;
-
+                    if (pullSuccess)
+                        _messageService.Show("The TrinityCore repository has been updated to the latest version.", "Success", MessageButton.OK, MessageImage.Information);
+                    else
+                        _messageService.Show("Pulling could not be completed!", "Something went wrong", MessageButton.OK, MessageImage.Error);
                 });
 
+                _isCloning = false;
             }
 
             BusyIndeterminate = false;

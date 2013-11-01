@@ -68,34 +68,42 @@ namespace TrinityCore_Manager.TC
                     //MessageBox.Show("The selected trunk location is not a valid git repository.", "Something went wrong!", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
                     succeeded = false;
                 }
+                catch (Exception)
+                {
+                    succeeded = false;
+                }
             });
 
             return succeeded;
         }
 
-        public static async Task Pull(string gitDir, IProgress<string> progress)
+        public static async Task<bool> Pull(string gitDir, IProgress<string> progress)
         {
+            bool succeeded = true;
 
             await Task.Run(() =>
             {
+                try
+                {
+                    string args = String.Format("/c \"{0}\" pull -v --progress", GetGitLocation());
+                    Process pullProc = ProcessHelper.StartProcess("cmd.exe", gitDir, args);
 
-                string args = String.Format("/c \"{0}\" pull -v --progress", GetGitLocation());
+                    if (pullProc == null)
+                        return;
 
-                Process pullProc = ProcessHelper.StartProcess("cmd.exe", gitDir, args);
-
-                if (pullProc == null)
-                    return;
-
-                pullProc.BeginErrorReadLine();
-                pullProc.BeginOutputReadLine();
-
-                pullProc.ErrorDataReceived += (sender, e) => progress.Report(e.Data);
-                pullProc.OutputDataReceived += (sender, e) => progress.Report(e.Data);
-
-                pullProc.WaitForExit();
-
+                    pullProc.BeginErrorReadLine();
+                    pullProc.BeginOutputReadLine();
+                    pullProc.ErrorDataReceived += (sender, e) => progress.Report(e.Data);
+                    pullProc.OutputDataReceived += (sender, e) => progress.Report(e.Data);
+                    pullProc.WaitForExit();
+                }
+                catch (Exception)
+                {
+                    succeeded = false;
+                }
             });
 
+            return succeeded;
         }
 
         public static string GetGitLocation()
