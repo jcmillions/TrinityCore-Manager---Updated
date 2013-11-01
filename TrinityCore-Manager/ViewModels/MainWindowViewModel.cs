@@ -743,20 +743,17 @@ namespace TrinityCore_Manager.ViewModels
 
                                                     }));
 
-                await TrinityCoreRepository.Clone(Settings.Default.TrunkLocation, progress).ContinueWith(task =>
+                bool cloneSuccess = await TrinityCoreRepository.Clone(Settings.Default.TrunkLocation, progress);
+
+                _dispatcherService.Invoke(() =>
                 {
-
-                    _dispatcherService.Invoke(() =>
-                    {
-
-                        _messageService.Show("Cloning has been completed!", "Success");
-
-                    });
-
-                    _isCloning = false;
-
+                    if (cloneSuccess)
+                        _messageService.Show("Cloning has been completed!", "Success", MessageButton.OK, MessageImage.Information);
+                    else
+                        _messageService.Show("Cloning could not be completed!", "Something went wrong", MessageButton.OK, MessageImage.Error);
                 });
 
+                _isCloning = false;
             }
             else
             {

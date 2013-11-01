@@ -34,12 +34,12 @@ namespace TrinityCore_Manager.TC
 
         private const string TrinityCoreGit = "git://github.com/TrinityCore/TrinityCore.git";
 
-        public static async Task Clone(string cloneTo, IProgress<double> progress)
+        public static async Task<bool> Clone(string cloneTo, IProgress<double> progress)
         {
+            bool succeeded = true;
 
             await Task.Run(() =>
             {
-
                 var thandler = new TransferProgressHandler(h =>
                 {
 
@@ -66,8 +66,11 @@ namespace TrinityCore_Manager.TC
                 catch (LibGit2SharpException)
                 {
                     //MessageBox.Show("The selected trunk location is not a valid git repository.", "Something went wrong!", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                    succeeded = false;
                 }
             });
+
+            return succeeded;
         }
 
         public static async Task Pull(string gitDir, IProgress<string> progress)
