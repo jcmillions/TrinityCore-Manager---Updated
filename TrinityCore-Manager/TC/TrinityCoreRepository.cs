@@ -108,7 +108,6 @@ namespace TrinityCore_Manager.TC
 
         public static string GetGitLocation()
         {
-
             string git;
 
             if (Environment.Is64BitOperatingSystem)
@@ -126,9 +125,6 @@ namespace TrinityCore_Manager.TC
                 return String.Empty;
 
             return git;
-
         }
-
     }
-
 }

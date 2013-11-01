@@ -177,6 +177,8 @@ namespace TrinityCore_Manager.ViewModels
             SetColorTheme(Settings.Default.ColorTheme);
 
             Application.Current.Exit += Current_Exit;
+            Application.Current.MainWindow.MinHeight = 744;
+            Application.Current.MainWindow.MinWidth = 1137;
         }
 
         private void ShowContactUs()
