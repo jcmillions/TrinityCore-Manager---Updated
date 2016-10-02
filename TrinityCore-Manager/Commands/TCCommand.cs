@@ -17,8 +17,8 @@ namespace TrinityCore_Manager.Commands
 {
     public enum TCCommand
     {
-        [TCCommand("account create", 2)]
-        CreateAccount,
+        [TCCommand("bnetaccount create", 2)]
+        BnetCreateAccount,
 
         [TCCommand("ban account", 3)]
         BanAccount,
